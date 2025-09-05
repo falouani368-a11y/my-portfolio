@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FADI ALOUANI - Portfolio</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+        
+        .nav-link {
+            margin: 0 10px;
+        }
+        
+        .navbar-toggler {
+            border: none;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .text-center .section-title::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .skill-item {
+            margin-bottom: 20px;
+        }
+        
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+        
+        .project-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--secondary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.2rem;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--secondary-color);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .social-icons {
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .btn-download {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-download:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            color: white;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+        }
+        
+        /* Styles spécifiques pour la section Compte Rendu TP */
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--secondary-color);
+            background-color: #e9f7fe;
+        }
+        
+        .upload-icon {
+            font-size: 50px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .file-list {
+            margin-top: 20px;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .file-name {
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">FADI ALOUANI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Compétences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Expérience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#compte-rendu">Compte Rendu TP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <img src="my_photo.jpg">
+                    <h1 class="display-4 fw-bold">FADI ALOUANI</h1>
+                    <p class="lead">Agent de sûreté et de sécurité privée</p>
+                    <div class="mt-4">
+                        <a href="#contact" class="btn btn-light btn-lg me-3">Me contacter</a>
+                        <a href="#" class="btn btn-outline-light btn-lg" id="downloadCV">Télécharger mon CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="section-title">À propos de moi</h2>
+                    <p>Je suis un agent de sûreté et de sécurité privée passionné par la protection des personnes et des biens. Titulaire d'une formation A2SP, je suis spécialisé dans la prévention des risques, l'évacuation des personnes et la télésurveillance.</p>
+                    <p>Mon parcours professionnel m'a permis de développer un esprit d'équipe, un sens aigu du sérieux et une excellente condition physique, essentiels dans le domaine de la sécurité.</p>
+                    <p>Je suis également ouvert aux opportunités internationales grâce à ma maîtrise de l'anglais (niveau B2).</p>
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled">
+                                <li><strong>Téléphone:</strong> 07 69 43 94 21</li>
+                                <li><strong>Ville:</strong> Gap, 05000</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled">
+                                <li><strong>Email:</strong> falouani368@gmail.com</li>
+                                <li><strong>Disponibilité:</strong> Immédiate</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="À propos" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-light py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Mes compétences</h2>
+            <p class="text-center mb-5">Découvrez l'étendue de mes compétences professionnelles</p>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Protection des biens</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Sécurité incendie</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Télésurveillance</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Gardiennage & filtrage</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Gestion de crise</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Anglais (B2)</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <i class="fas fa-users fa-2x text-primary mb-3"></i>
+                        <h5>Esprit d'équipe</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <i class="fas fa-shield-alt fa-2x text-primary mb-3"></i>
+                        <h5>Sérieux</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <i class="fas fa-running fa-2x text-primary mb-3"></i>
+                        <h5>Bonne condition physique</h5>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center mb-4">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <i class="fas fa-boxing-glove fa-2x text-primary mb-3"></i>
+                        <h5>Boxe anglaise</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Mes projets</h2>
+            <p class="text-center mb-5">Découvrez quelques-uns de mes projets professionnels</p>
+            
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-card card h-100">
+                        <img src="https://images.unsplash.com/photo-1587271636243-d4c3170a7c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top project-img" alt="Projet sécurité">
+                        <div class="card-body">
+                            <h5 class="card-title">Système de surveillance</h5>
+                            <p class="card-text">Mise en place d'un système de télésurveillance complet pour un complexe commercial.</p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#project1Modal">
+                                Voir les détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-card card h-100">
+                        <img src="https://images.unsplash.com/photo-1560157360-e2a60edd834c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top project-img" alt="Projet évacuation">
+                        <div class="card-body">
+                            <h5 class="card-title">Plan d'évacuation</h5>
+                            <p class="card-text">Élaboration et mise en œuvre d'un plan d'évacuation pour un établissement recevant du public.</p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#project2Modal">
+                                Voir les détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="project-card card h-100">
+                        <img src="https://images.unsplash.com/photo-1598030898391-88aacb4f85e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top project-img" alt="Projet filtrage">
+                        <div class="card-body">
+                            <h5 class="card-title">Système de filtrage</h5>
+                            <p class="card-text">Mise en place d'un système de contrôle d'accès et de filtrage pour un site sensible.</p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#project3Modal">
+                                Voir les détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="bg-light py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Mon parcours</h2>
+            <p class="text-center mb-5">Formation et expériences professionnelles</p>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="mb-4">Formation</h4>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2024</div>
+                            <h5>Formation Agent de Sûreté et Sécurité Privée</h5>
+                            <p>GRETA Briançon - Titre A2SP</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2023</div>
+                            <h5>BTS Services et Prestations des Secteurs Sanitaire et Social</h5>
+                            <p>Lycée Sévigné, Gap - Première année</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2022</div>
+                            <h5>BAC PRO Technicien d'Étude du BTP</h5>
+                            <p>Lycée Paul Hérault, Gap</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h4 class="mb-4">Expérience Professionnelle</h4>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2024</div>
+                            <h5>Agent de sûreté et sécurité</h5>
+                            <p>Stage EDC Sécurité et CDD 2A Sécurité</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2023</div>
+                            <h5>Stagiaire BTS SP3S</h5>
+                            <p>Société Alpage Autonomie - 2 mois</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2022</div>
+                            <h5>Stagiaire Technicien d'étude du BTP</h5>
+                            <p>SARL ASLAN maçonnerie et bureau d'étude - 2 mois</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compte Rendu TP Section -->
+    <section id="compte-rendu" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Compte Rendu TP</h2>
+            <p class="text-center mb-5">Déposez vos comptes rendus de travaux pratiques ici</p>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <div class="upload-area" id="dropZone">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <h4>Déposer des fichiers</h4>
+                                <p class="text-muted">Glissez-déposez vos fichiers ici ou cliquez pour parcourir</p>
+                                <input type="file" id="fileInput" multiple style="display: none;">
+                                <button class="btn btn-primary mt-3" onclick="document.getElementById('fileInput').click()">
+                                    Sélectionner des fichiers
+                                </button>
+                            </div>
+                            
+                            <div class="file-list mt-4" id="fileList">
+                                <h5>Fichiers à envoyer</h5>
+                                <div id="noFiles" class="text-muted">Aucun fichier sélectionné</div>
+                                <!-- Les fichiers sélectionnés apparaîtront ici -->
+                            </div>
+                            
+                            <form action="https://formsubmit.co/falouani368@gmail.com" method="POST" enctype="multipart/form-data" class="mt-4">
+                                <input type="hidden" name="_subject" value="Nouveau compte rendu TP déposé">
+                                <input type="hidden" name="_template" value="table">
+                                
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Votre nom</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Votre email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message (optionnel)</label>
+                                    <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="fileInputForm" class="form-label">Fichiers joints</label>
+                                    <input type="file" class="form-control" id="fileInputForm" name="attachment" multiple>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Envoyer les fichiers
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <h4>Instructions</h4>
+                        <ul>
+                            <li>Formats acceptés: PDF, Word, Excel, images (max 10MB par fichier)</li>
+                            <li>Vous pouvez sélectionner plusieurs fichiers à la fois</li>
+                            <li>Assurez-vous de renseigner votre nom et email pour recevoir un accusé de réception</li>
+                            <li>Vous recevrez une confirmation par email une fois le dépôt effectué</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Contactez-moi</h2>
+            <p class="text-center mb-5">N'hésitez pas à me contacter pour toute opportunité</p>
+            
+            <div class="row">
+                <div class="col-lg-5 mb-4">
+                    <div class="contact-info d-flex">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Localisation</h5>
+                            <p>05000 Gap, France</p>
+                        </div>
+                    </div>
+                    <div class="contact-info d-flex">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5>Email</h5>
+                            <p>falouani368@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-info d-flex">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h5>Téléphone</h5>
+                            <p>07 69 43 94 21</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <form action="https://formsubmit.co/falouani368@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
+                        <input type="hidden" name="_template" value="table">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" name="name" placeholder="Votre nom" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" class="form-control" name="email" placeholder="Votre email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="_subject" placeholder="Sujet" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" name="message" rows="5" placeholder="Votre message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p>&copy; 2024 Fadi Alouani. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Project Modals -->
+    <!-- Modal 1 -->
+    <div class="modal fade" id="project1Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Système de surveillance</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://images.unsplash.com/photo-1587271636243-d4c3170a7c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-fluid mb-3" alt="Projet sécurité">
+                    <p>Mise en place d'un système de télésurveillance complet pour un complexe commercial incluant :</p>
+                    <ul>
+                        <li>Installation de caméras haute définition</li>
+                        <li>Configuration du système d'enregistrement</li>
+                        <li>Formation du personnel à l'utilisation du système</li>
+                        <li>Établissement des procédures de surveillance</li>
+                    </ul>
+                    <p><strong>Résultats :</strong> Réduction de 40% des incidents de sécurité et amélioration significative du temps de réponse.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="project2Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Plan d'évacuation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://images.unsplash.com/photo-1560157360-e2a60edd834c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-fluid mb-3" alt="Projet évacuation">
+                    <p>Élaboration et mise en œuvre d'un plan d'évacuation pour un établissement recevant du public :</p>
+                    <ul>
+                        <li>Analyse des risques et des flux de personnes</li>
+                        <li>Conception des cheminements d'évacuation</li>
+                        <li>Formation du personnel aux procédures d'urgence</li>
+                        <li>Organisation d'exercices d'évacuation</li>
+                    </ul>
+                    <p><strong>Résultats :</strong> Diminution du temps d'évacuation de 30% et meilleure coordination des équipes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="modal fade" id="project3Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Système de filtrage</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://images.unsplash.com/photo-1598030898391-88aacb4f85e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-fluid mb-3" alt="Projet filtrage">
+                    <p>Mise en place d'un système de contrôle d'accès et de filtrage pour un site sensible :</p>
+                    <ul>
+                        <li>Installation de portiques de sécurité et détecteurs de métaux</li>
+                        <li>Mise en œuvre de procédures de contrôle d'identité</li>
+                        <li>Formation des agents de sécurité aux techniques de filtrage</li>
+                        <li>Intégration du système avec la télésurveillance existante</li>
+                    </ul>
+                    <p><strong>Résultats :</strong> Amélioration de la sécurité du site et réduction des intrusions non autorisées.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').style.padding = '10px 0';
+                document.querySelector('.navbar').style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                document.querySelector('.navbar').style.padding = '15px 0';
+                document.querySelector('.navbar').style.boxShadow = 'none';
+            }
+        });
+        
+        // CV Download
+        document.getElementById('downloadCV').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Create a temporary link element
+            const link = document.createElement('a');
+            link.href = 'FADI ALOUANI.pdf'; // This would be the path to your actual CV file
+            link.download = 'FADI_ALOUANI_CV.pdf';
+            
+            // Simulate click to trigger download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // File upload functionality for Compte Rendu TP section
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInputForm = document.getElementById('fileInputForm');
+        const fileList = document.getElementById('fileList');
+        const noFiles = document.getElementById('noFiles');
+
+        // Sync the two file inputs
+        fileInput.addEventListener('change', function() {
+            fileInputForm.files = this.files;
+            updateFileList(this.files);
+        });
+
+        fileInputForm.addEventListener('change', function() {
+            fileInput.files = this.files;
+            updateFileList(this.files);
+        });
+
+        // Drag and drop functionality
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropZone.classList.add('bg-light');
+        }
+
+        function unhighlight() {
+            dropZone.classList.remove('bg-light');
+        }
+
+        dropZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            fileInputForm.files = files;
+            updateFileList(files);
+        }
+
+        function updateFileList(files) {
+            if (files.length > 0) {
+                noFiles.style.display = 'none';
+                
+                // Clear previous list but keep the title
+                while (fileList.children.length > 1) {
+                    fileList.removeChild(fileList.lastChild);
+                }
+                
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    
+                    const fileName = document.createElement('div');
+                    fileName.className = 'file-name';
+                    fileName.textContent = file.name;
+                    
+                    const fileSize = document.createElement('div');
+                    fileSize.className = 'file-size text-muted';
+                    fileSize.textContent = formatFileSize(file.size);
+                    
+                    fileItem.appendChild(fileName);
+                    fileItem.appendChild(fileSize);
+                    fileList.appendChild(fileItem);
+                }
+            } else {
+                noFiles.style.display = 'block';
+                // Clear file list except the title and noFiles message
+                while (fileList.children.length > 2) {
+                    fileList.removeChild(fileList.lastChild);
+                }
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
