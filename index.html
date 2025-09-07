@@ -283,6 +283,33 @@
             flex-grow: 1;
             margin-right: 15px;
         }
+        
+        /* Styles supplémentaires pour la section Compte Rendu TP */
+        .stored-files-section {
+            margin-top: 40px;
+        }
+        
+        .stored-file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .file-actions button {
+            margin-left: 5px;
+        }
+        
+        .empty-storage {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -326,7 +353,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <img src="my_photo.jpg">
+                    <img src="my_photo.jpg" class="profile-img">
                     <h1 class="display-4 fw-bold">FADI ALOUANI</h1>
                     <p class="lead">Agent de sûreté et de sécurité privée</p>
                     <div class="mt-4">
@@ -573,10 +600,10 @@
     <section id="compte-rendu" class="py-5">
         <div class="container">
             <h2 class="section-title text-center">Compte Rendu TP</h2>
-            <p class="text-center mb-5">Déposez vos comptes rendus de travaux pratiques ici</p>
+            <p class="text-center mb-5">Déposez et gérez vos comptes rendus de travaux pratiques</p>
             
             <div class="row justify-content-center">
-                <div class="col-lg-8">
+                <div class="col-lg-10">
                     <div class="card shadow">
                         <div class="card-body p-5">
                             <div class="upload-area" id="dropZone">
@@ -595,10 +622,7 @@
                                 <!-- Les fichiers sélectionnés apparaîtront ici -->
                             </div>
                             
-                            <form action="https://formsubmit.co/falouani368@gmail.com" method="POST" enctype="multipart/form-data" class="mt-4">
-                                <input type="hidden" name="_subject" value="Nouveau compte rendu TP déposé">
-                                <input type="hidden" name="_template" value="table">
-                                
+                            <form id="uploadForm" class="mt-4">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Votre nom</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
@@ -615,14 +639,28 @@
                                 </div>
                                 
                                 <div class="mb-3">
-                                    <label for="fileInputForm" class="form-label">Fichiers joints</label>
-                                    <input type="file" class="form-control" id="fileInputForm" name="attachment" multiple>
+                                    <label class="form-label">Fichiers joints</label>
+                                    <div id="selectedFilesList"></div>
                                 </div>
                                 
                                 <button type="submit" class="btn btn-success w-100">
-                                    <i class="fas fa-paper-plane me-2"></i>Envoyer les fichiers
+                                    <i class="fas fa-save me-2"></i>Enregistrer les fichiers
                                 </button>
                             </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Section pour afficher les fichiers stockés -->
+                    <div class="stored-files-section mt-5">
+                        <div class="card shadow">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0">Fichiers stockés</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="storedFilesList">
+                                    <div class="empty-storage">Aucun fichier stocké pour le moment</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -631,8 +669,8 @@
                         <ul>
                             <li>Formats acceptés: PDF, Word, Excel, images (max 10MB par fichier)</li>
                             <li>Vous pouvez sélectionner plusieurs fichiers à la fois</li>
-                            <li>Assurez-vous de renseigner votre nom et email pour recevoir un accusé de réception</li>
-                            <li>Vous recevrez une confirmation par email une fois le dépôt effectué</li>
+                            <li>Les fichiers sont stockés localement dans votre navigateur</li>
+                            <li>Pour un stockage permanent, contactez l'administrateur</li>
                         </ul>
                     </div>
                 </div>
@@ -855,20 +893,8 @@
         // File upload functionality for Compte Rendu TP section
         const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
-        const fileInputForm = document.getElementById('fileInputForm');
         const fileList = document.getElementById('fileList');
         const noFiles = document.getElementById('noFiles');
-
-        // Sync the two file inputs
-        fileInput.addEventListener('change', function() {
-            fileInputForm.files = this.files;
-            updateFileList(this.files);
-        });
-
-        fileInputForm.addEventListener('change', function() {
-            fileInput.files = this.files;
-            updateFileList(this.files);
-        });
 
         // Drag and drop functionality
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -902,11 +928,18 @@
             const dt = e.dataTransfer;
             const files = dt.files;
             fileInput.files = files;
-            fileInputForm.files = files;
             updateFileList(files);
         }
 
+        fileInput.addEventListener('change', function() {
+            updateFileList(this.files);
+        });
+
+        // Fonction pour mettre à jour la liste des fichiers sélectionnés
         function updateFileList(files) {
+            const selectedFilesList = document.getElementById('selectedFilesList');
+            selectedFilesList.innerHTML = '';
+            
             if (files.length > 0) {
                 noFiles.style.display = 'none';
                 
@@ -917,6 +950,8 @@
                 
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
+                    
+                    // Ajouter à la liste visuelle
                     const fileItem = document.createElement('div');
                     fileItem.className = 'file-item';
                     
@@ -931,6 +966,12 @@
                     fileItem.appendChild(fileName);
                     fileItem.appendChild(fileSize);
                     fileList.appendChild(fileItem);
+                    
+                    // Ajouter au formulaire pour l'affichage
+                    const fileBadge = document.createElement('span');
+                    fileBadge.className = 'badge bg-secondary me-2 mb-2';
+                    fileBadge.innerHTML = `${file.name} <span class="ms-1">(${formatFileSize(file.size)})</span>`;
+                    selectedFilesList.appendChild(fileBadge);
                 }
             } else {
                 noFiles.style.display = 'block';
@@ -941,6 +982,7 @@
             }
         }
 
+        // Fonction pour formater la taille des fichiers
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -948,6 +990,173 @@
             const i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
+        
+        // Gestion de l'envoi du formulaire
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const files = fileInput.files;
+            
+            if (files.length === 0) {
+                alert('Veuillez sélectionner au moins un fichier');
+                return;
+            }
+            
+            // Stocker les informations sur les fichiers
+            storeFiles(name, email, message, files);
+            
+            // Réinitialiser le formulaire
+            this.reset();
+            fileInput.value = '';
+            document.getElementById('selectedFilesList').innerHTML = '';
+            updateFileList([]);
+            
+            alert('Vos fichiers ont été enregistrés avec succès!');
+        });
+        
+        // Fonction pour stocker les informations sur les fichiers
+        function storeFiles(name, email, message, files) {
+            // Récupérer les fichiers déjà stockés
+            let storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            
+            // Parcourir chaque fichier
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // Lire le fichier comme URL de données
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const fileData = {
+                        id: Date.now() + i, // ID unique
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        data: e.target.result, // Données du fichier en base64
+                        uploadDate: new Date().toISOString(),
+                        uploader: {
+                            name: name,
+                            email: email,
+                            message: message
+                        }
+                    };
+                    
+                    // Ajouter aux fichiers stockés
+                    storedFiles.push(fileData);
+                    
+                    // Sauvegarder dans le localStorage
+                    localStorage.setItem('compteRenduFiles', JSON.stringify(storedFiles));
+                    
+                    // Mettre à jour l'affichage
+                    displayStoredFiles();
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Fonction pour afficher les fichiers stockés
+        function displayStoredFiles() {
+            const storedFilesList = document.getElementById('storedFilesList');
+            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            
+            if (storedFiles.length === 0) {
+                storedFilesList.innerHTML = '<div class="empty-storage">Aucun fichier stocké pour le moment</div>';
+                return;
+            }
+            
+            storedFilesList.innerHTML = '';
+            
+            storedFiles.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'stored-file-item';
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <h6>${file.name}</h6>
+                        <small class="text-muted">Taille: ${formatFileSize(file.size)}</small>
+                        <small class="text-muted d-block">Déposé par: ${file.uploader.name} (${file.uploader.email})</small>
+                        <small class="text-muted">Date: ${new Date(file.uploadDate).toLocaleDateString()}</small>
+                    </div>
+                    <div class="file-actions">
+                        <button class="btn btn-sm btn-outline-primary view-file" data-id="${file.id}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success download-file" data-id="${file.id}">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger delete-file" data-id="${file.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                storedFilesList.appendChild(fileItem);
+            });
+            
+            // Ajouter les écouteurs d'événements pour les boutons
+            document.querySelectorAll('.view-file').forEach(button => {
+                button.addEventListener('click', function() {
+                    const fileId = this.getAttribute('data-id');
+                    viewFile(fileId);
+                });
+            });
+            
+            document.querySelectorAll('.download-file').forEach(button => {
+                button.addEventListener('click', function() {
+                    const fileId = this.getAttribute('data-id');
+                    downloadFile(fileId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-file').forEach(button => {
+                button.addEventListener('click', function() {
+                    const fileId = this.getAttribute('data-id');
+                    deleteFile(fileId);
+                });
+            });
+        }
+        
+        // Fonction pour visualiser un fichier
+        function viewFile(fileId) {
+            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            const file = storedFiles.find(f => f.id == fileId);
+            
+            if (file) {
+                // Ouvrir le fichier dans un nouvel onglet
+                window.open(file.data, '_blank');
+            }
+        }
+        
+        // Fonction pour télécharger un fichier
+        function downloadFile(fileId) {
+            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            const file = storedFiles.find(f => f.id == fileId);
+            
+            if (file) {
+                const link = document.createElement('a');
+                link.href = file.data;
+                link.download = file.name;
+                link.click();
+            }
+        }
+        
+        // Fonction pour supprimer un fichier
+        function deleteFile(fileId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce fichier?')) {
+                let storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+                storedFiles = storedFiles.filter(f => f.id != fileId);
+                localStorage.setItem('compteRenduFiles', JSON.stringify(storedFiles));
+                displayStoredFiles();
+            }
+        }
+        
+        // Afficher les fichiers stockés au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayStoredFiles();
+        });
     </script>
 </body>
 </html>
