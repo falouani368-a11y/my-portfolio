@@ -310,6 +310,16 @@
             color: #6c757d;
             font-style: italic;
         }
+        
+        .file-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .file-uploader {
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
@@ -600,7 +610,7 @@
     <section id="compte-rendu" class="py-5">
         <div class="container">
             <h2 class="section-title text-center">Compte Rendu TP</h2>
-            <p class="text-center mb-5">Déposez et gérez vos comptes rendus de travaux pratiques</p>
+            <p class="text-center mb-5">Déposez et consultez les comptes rendus de travaux pratiques</p>
             
             <div class="row justify-content-center">
                 <div class="col-lg-10">
@@ -644,7 +654,7 @@
                                 </div>
                                 
                                 <button type="submit" class="btn btn-success w-100">
-                                    <i class="fas fa-save me-2"></i>Enregistrer les fichiers
+                                    <i class="fas fa-save me-2"></i>Publier les fichiers
                                 </button>
                             </form>
                         </div>
@@ -654,11 +664,11 @@
                     <div class="stored-files-section mt-5">
                         <div class="card shadow">
                             <div class="card-header bg-primary text-white">
-                                <h4 class="mb-0">Fichiers stockés</h4>
+                                <h4 class="mb-0">Fichiers partagés (Visibles par tous)</h4>
                             </div>
                             <div class="card-body">
                                 <div id="storedFilesList">
-                                    <div class="empty-storage">Aucun fichier stocké pour le moment</div>
+                                    <div class="empty-storage">Aucun fichier partagé pour le moment</div>
                                 </div>
                             </div>
                         </div>
@@ -669,8 +679,8 @@
                         <ul>
                             <li>Formats acceptés: PDF, Word, Excel, images (max 10MB par fichier)</li>
                             <li>Vous pouvez sélectionner plusieurs fichiers à la fois</li>
-                            <li>Les fichiers sont stockés localement dans votre navigateur</li>
-                            <li>Pour un stockage permanent, contactez l'administrateur</li>
+                            <li>Les fichiers que vous publiez seront visibles par tous les visiteurs</li>
+                            <li>Pour supprimer un fichier, contactez l'administrateur</li>
                         </ul>
                     </div>
                 </div>
@@ -951,6 +961,12 @@
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
                     
+                    // Vérifier la taille du fichier (max 10MB)
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert(`Le fichier "${file.name}" dépasse la taille maximale autorisée de 10MB`);
+                        continue;
+                    }
+                    
                     // Ajouter à la liste visuelle
                     const fileItem = document.createElement('div');
                     fileItem.className = 'file-item';
@@ -1014,17 +1030,22 @@
             document.getElementById('selectedFilesList').innerHTML = '';
             updateFileList([]);
             
-            alert('Vos fichiers ont été enregistrés avec succès!');
+            alert('Vos fichiers ont été publiés avec succès! Ils sont maintenant visibles par tous.');
         });
         
         // Fonction pour stocker les informations sur les fichiers
         function storeFiles(name, email, message, files) {
             // Récupérer les fichiers déjà stockés
-            let storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            let storedFiles = JSON.parse(localStorage.getItem('compteRenduFilesPublic')) || [];
             
             // Parcourir chaque fichier
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
+                
+                // Vérifier à nouveau la taille du fichier
+                if (file.size > 10 * 1024 * 1024) {
+                    continue; // Ignorer les fichiers trop volumineux
+                }
                 
                 // Lire le fichier comme URL de données
                 const reader = new FileReader();
@@ -1041,14 +1062,15 @@
                             name: name,
                             email: email,
                             message: message
-                        }
+                        },
+                        public: true // Indicateur que le fichier est public
                     };
                     
                     // Ajouter aux fichiers stockés
                     storedFiles.push(fileData);
                     
                     // Sauvegarder dans le localStorage
-                    localStorage.setItem('compteRenduFiles', JSON.stringify(storedFiles));
+                    localStorage.setItem('compteRenduFilesPublic', JSON.stringify(storedFiles));
                     
                     // Mettre à jour l'affichage
                     displayStoredFiles();
@@ -1061,12 +1083,15 @@
         // Fonction pour afficher les fichiers stockés
         function displayStoredFiles() {
             const storedFilesList = document.getElementById('storedFilesList');
-            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFilesPublic')) || [];
             
             if (storedFiles.length === 0) {
-                storedFilesList.innerHTML = '<div class="empty-storage">Aucun fichier stocké pour le moment</div>';
+                storedFilesList.innerHTML = '<div class="empty-storage">Aucun fichier partagé pour le moment</div>';
                 return;
             }
+            
+            // Trier les fichiers par date (du plus récent au plus ancien)
+            storedFiles.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
             
             storedFilesList.innerHTML = '';
             
@@ -1076,19 +1101,19 @@
                 fileItem.innerHTML = `
                     <div class="file-info">
                         <h6>${file.name}</h6>
-                        <small class="text-muted">Taille: ${formatFileSize(file.size)}</small>
-                        <small class="text-muted d-block">Déposé par: ${file.uploader.name} (${file.uploader.email})</small>
-                        <small class="text-muted">Date: ${new Date(file.uploadDate).toLocaleDateString()}</small>
+                        <div class="file-meta">
+                            <div>Déposé par: <span class="file-uploader">${file.uploader.name}</span></div>
+                            <div>Le ${new Date(file.uploadDate).toLocaleDateString()} à ${new Date(file.uploadDate).toLocaleTimeString()}</div>
+                            <div>Taille: ${formatFileSize(file.size)}</div>
+                            ${file.uploader.message ? `<div class="mt-1">Message: "${file.uploader.message}"</div>` : ''}
+                        </div>
                     </div>
                     <div class="file-actions">
                         <button class="btn btn-sm btn-outline-primary view-file" data-id="${file.id}">
-                            <i class="fas fa-eye"></i>
+                            <i class="fas fa-eye me-1"></i> Voir
                         </button>
                         <button class="btn btn-sm btn-outline-success download-file" data-id="${file.id}">
-                            <i class="fas fa-download"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger delete-file" data-id="${file.id}">
-                            <i class="fas fa-trash"></i>
+                            <i class="fas fa-download me-1"></i> Télécharger
                         </button>
                     </div>
                 `;
@@ -1110,18 +1135,11 @@
                     downloadFile(fileId);
                 });
             });
-            
-            document.querySelectorAll('.delete-file').forEach(button => {
-                button.addEventListener('click', function() {
-                    const fileId = this.getAttribute('data-id');
-                    deleteFile(fileId);
-                });
-            });
         }
         
         // Fonction pour visualiser un fichier
         function viewFile(fileId) {
-            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFilesPublic')) || [];
             const file = storedFiles.find(f => f.id == fileId);
             
             if (file) {
@@ -1132,7 +1150,7 @@
         
         // Fonction pour télécharger un fichier
         function downloadFile(fileId) {
-            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
+            const storedFiles = JSON.parse(localStorage.getItem('compteRenduFilesPublic')) || [];
             const file = storedFiles.find(f => f.id == fileId);
             
             if (file) {
@@ -1140,16 +1158,6 @@
                 link.href = file.data;
                 link.download = file.name;
                 link.click();
-            }
-        }
-        
-        // Fonction pour supprimer un fichier
-        function deleteFile(fileId) {
-            if (confirm('Êtes-vous sûr de vouloir supprimer ce fichier?')) {
-                let storedFiles = JSON.parse(localStorage.getItem('compteRenduFiles')) || [];
-                storedFiles = storedFiles.filter(f => f.id != fileId);
-                localStorage.setItem('compteRenduFiles', JSON.stringify(storedFiles));
-                displayStoredFiles();
             }
         }
         
