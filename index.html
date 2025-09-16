@@ -66,6 +66,7 @@
             object-fit: cover;
             border: 5px solid white;
             margin-bottom: 20px;
+            border-radius: 50%;
         }
         
         .section-title {
@@ -243,85 +244,6 @@
         .back-to-top.show {
             opacity: 1;
         }
-        
-        /* Styles spécifiques pour la section Compte Rendu TP */
-        .upload-area {
-            border: 2px dashed #ccc;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            background-color: #f8f9fa;
-            cursor: pointer;
-        }
-        
-        .upload-area:hover {
-            border-color: var(--secondary-color);
-            background-color: #e9f7fe;
-        }
-        
-        .upload-icon {
-            font-size: 50px;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-        }
-        
-        .file-list {
-            margin-top: 20px;
-        }
-        
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        
-        .file-name {
-            flex-grow: 1;
-            margin-right: 15px;
-        }
-        
-        /* Styles pour la section de fichiers disponibles */
-        .available-files {
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .file-download-card {
-            border-left: 4px solid var(--secondary-color);
-            transition: all 0.3s ease;
-        }
-        
-        .file-download-card:hover {
-            transform: translateX(5px);
-        }
-        
-        .download-btn {
-            background: var(--secondary-color);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .download-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        .file-icon {
-            font-size: 24px;
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
     </style>
 </head>
 <body>
@@ -365,7 +287,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <img src="my_photo.jpg" class="profile-img">
+                    <img src="my_photo.jpg" alt="Profile" class="profile-img">
                     <h1 class="display-4 fw-bold">FADI ALOUANI</h1>
                     <p class="lead">Agent de sûreté et de sécurité privée</p>
                     <div class="mt-4">
@@ -507,48 +429,37 @@
     <!-- Projects Section -->
     <section id="projects" class="py-5">
         <div class="container">
-            <h2 class="section-title text-center">Mes projets</h2>
-            <p class="text-center mb-5">Découvrez quelques-uns de mes projets professionnels</p>
+            <h2 class="section-title text-center">Mes Projets</h2>
+            <p class="text-center mb-5">Découvrez quelques-uns de mes projets récents</p>
             
             <div class="row">
-                <!-- Project 1 -->
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card card h-100">
-                        <img src="https://images.unsplash.com/photo-1587271636243-d4c3170a7c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top project-img" alt="Projet sécurité">
-                        <div class="card-body">
-                            <h5 class="card-title">Système de surveillance</h5>
-                            <p class="card-text">Mise en place d'un système de télésurveillance complet pour un complexe commercial.</p>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#project1Modal">
-                                Voir les détails
-                            </button>
+                    <div class="project-card">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 1" class="project-img w-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title">Système de surveillance avancé</h5>
+                            <p class="card-text">Mise en place d'un système de surveillance intégré pour un complexe commercial.</p>
+                            <a href="#" class="btn btn-primary">Voir le projet</a>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Project 2 -->
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card card h-100">
-                        <img src="https://images.unsplash.com/photo-1560157360-e2a60edd834c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top project-img" alt="Projet évacuation">
-                        <div class="card-body">
-                            <h5 class="card-title">Plan d'évacuation</h5>
-                            <p class="card-text">Élaboration et mise en œuvre d'un plan d'évacuation pour un établissement recevant du public.</p>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#project2Modal">
-                                Voir les détails
-                            </button>
+                    <div class="project-card">
+                        <img src="https://images.unsplash.com/photo-1574027709645-8ad5fb6bc93a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 2" class="project-img w-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title">Formation sécurité incendie</h5>
+                            <p class="card-text">Programme de formation sur la sécurité incendie pour une entreprise industrielle.</p>
+                            <a href="#" class="btn btn-primary">Voir le projet</a>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Project 3 -->
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="project-card card h-100">
-                        <img src="https://images.unsplash.com/photo-1598030898391-88aacb4f85e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top project-img" alt="Projet filtrage">
-                        <div class="card-body">
-                            <h5 class="card-title">Système de filtrage</h5>
-                            <p class="card-text">Mise en place d'un système de contrôle d'accès et de filtrage pour un site sensible.</p>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#project3Modal">
-                                Voir les détails
-                            </button>
+                    <div class="project-card">
+                        <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 3" class="project-img w-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title">Audit sécuritaire</h5>
+                            <p class="card-text">Audit complet des systèmes de sécurité d'un établissement public.</p>
+                            <a href="#" class="btn btn-primary">Voir le projet</a>
                         </div>
                     </div>
                 </div>
@@ -612,85 +523,78 @@
     <section id="compte-rendu" class="py-5">
         <div class="container">
             <h2 class="section-title text-center">Compte Rendu TP</h2>
-            <p class="text-center mb-5">Déposez vos comptes rendus de travaux pratiques ici</p>
+            <p class="text-center mb-5">Mes travaux pratiques et comptes rendus d'activité</p>
             
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <!-- Section des fichiers disponibles -->
-                    <div class="available-files">
-                        <h4 class="mb-4">Fichiers disponibles</h4>
-                        <div class="card file-download-card mb-4">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h5 class="card-title">Compte rendu TP sur l'algorithme</h5>
-                                        <p class="card-text text-muted">PDF - 3 pages - 02/09/2025</p>
-                                    </div>
-                                    <a href="compte_rendu_tp_algo.pdf.pdf" class="download-btn" download>
-                                        <i class="fas fa-download me-1"></i> Télécharger
-                                    </a>
-                                </div>
-                            </div>
+            <!-- Madame Beauvallet -->
+            <div class="category mb-5">
+                <h3 class="mb-4">Madame Beauvallet</h3>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="project-card p-4 shadow-sm rounded text-center">
+                            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                            <h4>Compte rendu d'activité</h4>
+                            <p>TP algo</p>
+                            <a href="compte_rendu_tp_algo.pdf" class="btn btn-primary">
+                                <i class="fas fa-file-pdf me-1"></i> Voir le PDF
+                            </a>
                         </div>
                     </div>
-                    
-                    <div class="card shadow">
-                        <div class="card-body p-5">
-                            <div class="upload-area" id="dropZone">
-                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                                <h4>Déposer des fichiers</h4>
-                                <p class="text-muted">Glissez-déposez vos fichiers ici ou cliquez pour parcourir</p>
-                                <input type="file" id="fileInput" multiple style="display: none;">
-                                <button class="btn btn-primary mt-3" onclick="document.getElementById('fileInput').click()">
-                                    Sélectionner des fichiers
-                                </button>
-                            </div>
-                            
-                            <div class="file-list mt-4" id="fileList">
-                                <h5>Fichiers à envoyer</h5>
-                                <div id="noFiles" class="text-muted">Aucun fichier sélectionné</div>
-                                <!-- Les fichiers sélectionnés apparaîtront ici -->
-                            </div>
-                            
-                            <form action="https://formsubmit.co/falouani368@gmail.com" method="POST" enctype="multipart/form-data" class="mt-4">
-                                <input type="hidden" name="_subject" value="Nouveau compte rendu TP déposé">
-                                <input type="hidden" name="_template" value="table">
-                                
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Votre nom</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Votre email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="message" class="form-label">Message (optionnel)</label>
-                                    <textarea class="form-control" id="message" name="message" rows="3"></textarea>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="fileInputForm" class="form-label">Fichiers joints</label>
-                                    <input type="file" class="form-control" id="fileInputForm" name="attachment" multiple>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-success w-100">
-                                    <i class="fas fa-paper-plane me-2"></i>Envoyer les fichiers
-                                </button>
-                            </form>
+					<div class="col-lg-4 col-md-6">
+                        <div class="project-card p-4 shadow-sm rounded text-center">
+                            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                            <h4>Compte rendu d'activité</h4>
+                            <p>Compte rendu premier pas java </p>
+                            <a href="compte_rendu_tp_premier_pas_java.pdf" class="btn btn-primary">
+                                <i class="fas fa-file-pdf me-1"></i> Voir le PDF
+                            </a>
                         </div>
                     </div>
-                    
-                    <div class="mt-5">
-                        <h4>Instructions</h4>
-                        <ul>
-                            <li>Formats acceptés: PDF, Word, Excel, images (max 10MB par fichier)</li>
-                            <li>Vous pouvez sélectionner plusieurs fichiers à la fois</li>
-                            <li>Assurez-vous de renseigner votre nom et email pour recevoir un accusé de réception</li>
-                            <li>Vous recevrez une confirmation par email une fois le dépôt effectué</li>
-                        </ul>
+                </div>
+            </div>
+
+            <!-- Monsieur Sotoca -->
+            <div class="category">
+                <h3 class="mb-4">Monsieur Sotoca</h3>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="project-card p-4 shadow-sm rounded text-center">
+                            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                            <h4>Compte rendu d'activité</h4>
+                            <p>TP capture d'écran</p>
+                            <a href="compte_rendu_tp_capture_decran.pdf" class="btn btn-primary">
+                                <i class="fas fa-file-pdf me-1"></i> Voir le PDF
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="project-card p-4 shadow-sm rounded text-center">
+                            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                            <h4>Compte rendu d'activité</h4>
+                            <p>Paramétrage info</p>
+                            <a href="compte_rendu_tp_parametrage_info.pdf.pdf" class="btn btn-primary">
+                                <i class="fas fa-file-pdf me-1"></i> Voir le PDF
+                            </a>
+                        </div>
+                    </div>
+					 <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="project-card p-4 shadow-sm rounded text-center">
+                            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                            <h4>Compte rendu d'activité</h4>
+                            <p>TP portfolio</p>
+                            <a href="compte_rendu_tp_portfolio.pdf" class="btn btn-primary">
+                                <i class="fas fa-file-pdf me-1"></i> Voir le PDF
+                            </a>
+                        </div>
+                    </div>
+					<div class="col-lg-4 col-md-6 mb-4">
+                        <div class="project-card p-4 shadow-sm rounded text-center">
+                            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+                            <h4>Compte rendu d'activité</h4>
+                            <p>TP logiciel diagnostic</p>
+                            <a href="compte_rendu_tp_logiciel_diagnostic.pdf" class="btn btn-primary">
+                                <i class="fas fa-file-pdf me-1"></i> Voir le PDF
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -698,7 +602,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-5">
+    <section id="contact" class="bg-light py-5">
         <div class="container">
             <h2 class="section-title text-center">Contactez-moi</h2>
             <p class="text-center mb-5">N'hésitez pas à me contacter pour toute opportunité</p>
@@ -776,76 +680,6 @@
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
-    <!-- Project Modals -->
-    <!-- Modal 1 -->
-    <div class="modal fade" id="project1Modal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Système de surveillance</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://images.unsplash.com/photo-1587271636243-d4c3170a7c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-fluid mb-3" alt="Projet sécurité">
-                    <p>Mise en place d'un système de télésurveillance complet pour un complexe commercial incluant :</p>
-                    <ul>
-                        <li>Installation de caméras haute définition</li>
-                        <li>Configuration du système d'enregistrement</li>
-                        <li>Formation du personnel à l'utilisation du système</li>
-                        <li>Établissement des procédures de surveillance</li>
-                    </ul>
-                    <p><strong>Résultats :</strong> Réduction de 40% des incidents de sécurité et amélioration significative du temps de réponse.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 2 -->
-    <div class="modal fade" id="project2Modal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Plan d'évacuation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://images.unsplash.com/photo-1560157360-e2a60edd834c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-fluid mb-3" alt="Projet évacuation">
-                    <p>Élaboration et mise en œuvre d'un plan d'évacuation pour un établissement recevant du public :</p>
-                    <ul>
-                        <li>Analyse des risques et des flux de personnes</li>
-                        <li>Conception des cheminements d'évacuation</li>
-                        <li>Formation du personnel aux procédures d'urgence</li>
-                        <li>Organisation d'exercices d'évacuation</li>
-                    </ul>
-                    <p><strong>Résultats :</strong> Diminution du temps d'évacuation de 30% et meilleure coordination des équipes.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 3 -->
-    <div class="modal fade" id="project3Modal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Système de filtrage</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://images.unsplash.com/photo-1598030898391-88aacb4f85e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="img-fluid mb-3" alt="Projet filtrage">
-                    <p>Mise en place d'un système de contrôle d'accès et de filtrage pour un site sensible :</p>
-                    <ul>
-                        <li>Installation de portiques de sécurité et détecteurs de métaux</li>
-                        <li>Mise en œuvre de procédures de contrôle d'identité</li>
-                        <li>Formation des agents de sécurité aux techniques de filtrage</li>
-                        <li>Intégration du système avec la télésurveillance existante</li>
-                    </ul>
-                    <p><strong>Résultats :</strong> Amélioration de la sécurité du site et réduction des intrusions non autorisées.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap & JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -882,8 +716,8 @@
             
             // Create a temporary link element
             const link = document.createElement('a');
-            link.href = 'FADI ALOUANI.pdf'; // This would be the path to your actual CV file
-            link.download = 'FADI_ALOUANI_CV.pdf';
+            link.href = 'FADI_ALOUANI.pdf'; // This would be the path to your actual CV file
+            link.download = 'FADI_ALOUANI.pdf';
             
             // Simulate click to trigger download
             document.body.appendChild(link);
@@ -893,118 +727,3 @@
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // File upload functionality for Compte Rendu TP section
-        const dropZone = document.getElementById('dropZone');
-        const fileInput = document.getElementById('fileInput');
-        const fileInputForm = document.getElementById('fileInputForm');
-        const fileList = document.getElementById('fileList');
-        const noFiles = document.getElementById('noFiles');
-
-        // Sync the two file inputs
-        fileInput.addEventListener('change', function() {
-            fileInputForm.files = this.files;
-            updateFileList(this.files);
-        });
-
-        fileInputForm.addEventListener('change', function() {
-            fileInput.files = this.files;
-            updateFileList(this.files);
-        });
-
-        // Drag and drop functionality
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, preventDefaults, false);
-        });
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, highlight, false);
-        });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, unhighlight, false);
-        });
-
-        function highlight() {
-            dropZone.classList.add('bg-light');
-        }
-
-        function unhighlight() {
-            dropZone.classList.remove('bg-light');
-        }
-
-        dropZone.addEventListener('drop', handleDrop, false);
-
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            fileInput.files = files;
-            fileInputForm.files = files;
-            updateFileList(files);
-        }
-
-        function updateFileList(files) {
-            if (files.length > 0) {
-                noFiles.style.display = 'none';
-                
-                // Clear previous list but keep the title
-                while (fileList.children.length > 1) {
-                    fileList.removeChild(fileList.lastChild);
-                }
-                
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'file-item';
-                    
-                    const fileName = document.createElement('div');
-                    fileName.className = 'file-name';
-                    fileName.textContent = file.name;
-                    
-                    const fileSize = document.createElement('div');
-                    fileSize.className = 'file-size text-muted';
-                    fileSize.textContent = formatFileSize(file.size);
-                    
-                    fileItem.appendChild(fileName);
-                    fileItem.appendChild(fileSize);
-                    fileList.appendChild(fileItem);
-                }
-            } else {
-                noFiles.style.display = 'block';
-                // Clear file list except the title and noFiles message
-                while (fileList.children.length > 2) {
-                    fileList.removeChild(fileList.lastChild);
-                }
-            }
-        }
-
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-    </script>
-</body>
-</html>
