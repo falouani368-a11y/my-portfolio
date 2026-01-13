@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier 14 - JavaScript </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #1a252f;
+            --success-color: #2ecc71;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .atelier-header {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .atelier-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .atelier-header .description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .atelier-header .meta {
+            display: flex;
+            gap: 1.5rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Liste des exercices */
+        .exercices-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+        
+        .exercices-container h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .exercice-list {
+            list-style: none;
+        }
+        
+        .exercice-item {
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .exercice-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .exercice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .exercice-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+        
+        .exercice-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .exercice-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .exercice-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+        /* Capture d'écran */
+        .screenshot-container {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+        }
+        
+        .screenshot-container h5 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .screenshot {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .screenshot-caption {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        /* Section de prévisualisation */
+        .preview-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .preview-header h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .preview-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #eaeaea;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .preview-content {
+            width: 100%;
+        }
+        
+        .code-container {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .code-container.active {
+            display: block;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #a0aec0;
+        }
+        
+        .code-header span {
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .copy-btn:hover {
+            background-color: #2d3748;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            color: #777;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .atelier-header .meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .exercice-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .exercice-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1> Récapitutatif des exercices effectués - ALOUANI Fadi</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- En-tête de l'atelier -->
+        <div class="atelier-header">
+            <h2><i class="fas fa-book"></i> Atelier 11: JavaScript 1/2 - Fondamentaux 1</h2>
+        </div>
+        
+        <!-- Liste des exercices -->
+        <div class="exercices-container">
+            <h3><i class="fas fa-tasks"></i> Exercices</h3>
+            <ul class="exercice-list" id="exercice-list">
+                <!-- Exercice 1 -->
+                <li class="exercice-item">
+                    <div class="exercice-header">
+                        <div>
+                            <span class="exercice-number">1</span>
+                            <span class="exercice-title">Afficher une alerte</span>
+                        </div>
+                    </div>
+                    <p class="exercice-description">
+                        Premier exercice JavaScript qui consiste à afficher une boîte de dialogue avec un message "I'm JavaScript!".
+                    </p>
+                    
+                    <!-- Capture d'écran ajoutée -->
+                    <div class="screenshot-container">
+                        <h5><i class="fas fa-camera"></i> Capture d'écran de la résolution</h5>
+                        <img src="screenexo 1.png" alt="Capture d'écran de l'alerte JavaScript" class="screenshot">
+                        <p class="screenshot-caption">Résultat de l'exercice 1 : boîte de dialogue avec le message "I'm JavaScript!"</p>
+                    </div>
+                    
+                    <div class="exercice-actions">
+                        <button class="btn btn-primary" id="executer-1">
+                            <i class="fas fa-play-circle"></i> Exécuter la solution
+                        </button>
+                        <button class="btn btn-secondary" id="preview-1">
+                            <i class="fas fa-eye"></i> Voir le code source
+                        </button>
+                    </div>
+                </li>
+                
+            </ul>
+            
+            <!-- Section de prévisualisation -->
+            <div class="preview-section" id="preview-section" style="display: none;">
+                <div class="preview-header">
+                    <h4 id="preview-title">Prévisualisation de l'exercice</h4>
+                    <button class="btn btn-secondary" id="show-code-btn">
+                        <i class="fas fa-code"></i> Voir le code source
+                    </button>
+                </div>
+                <div class="preview-container">
+                    <div class="preview-content" id="preview-content">
+                        <!-- Le contenu de l'exercice sera chargé ici -->
+                    </div>
+                    <div class="code-container" id="code-container">
+                        <div class="code-header">
+                            <span id="code-filename">index.html</span>
+                            <button class="copy-btn" id="copy-code-btn">
+                                <i class="fas fa-copy"></i> Copier le code
+                            </button>
+                        </div>
+                        <pre id="code-content"><code><!-- Le code sera affiché ici --></code></pre>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+	  <!-- Exercice 2 -->
+	   <div class="exercices-container">
+       <h3><i class="fas fa-tasks"></i> Exercices</h3>
+       <ul class="exercice-list" id="exercice-list">
+	
+                <li class="exercice-item">
+                <div class="exercice-header">
+                        <div>
+                            <span class="exercice-number">2</span>
+                            <span class="exercice-title">Afficher une alerte js</span>
+                        </div>
+                    </div>
+                    <p class="exercice-description">
+                        cette exercice JavaScript qui consiste a prendre la solution de l’exercice précédent Afficher une alerte puis a la modifier en extrayant le contenu du script dans un fichier externe alert.js, résidant dans le même dossier.
+                    </p>
+                    
+                    <!-- Capture d'écran ajoutée -->
+                    <div class="screenshot-container">
+                        <h5><i class="fas fa-camera"></i> Capture d'écran de la résolution</h5>
+                        <img src="screenexo 1.png" alt="Capture d'écran de l'alerte JavaScript" class="screenshot">
+                        <p class="screenshot-caption">Résultat de l'exercice 2 : boîte de dialogue avec le message "I'm JavaScript!"</p>
+                    </div>
+                    
+                    <div class="exercice-actions">
+                        <button class="btn btn-primary" id="executer-1">
+                            <i class="fas fa-play-circle"></i> Exécuter la solution
+                        </button>
+                        <button class="btn btn-secondary" id="preview-1">
+                            <i class="fas fa-eye"></i> Voir le code source
+                        </button>
+                    </div>
+                </li>
+                
+            </ul>
+            
+            <!-- Section de prévisualisation -->
+            <div class="preview-section" id="preview-section" style="display: none;">
+                <div class="preview-header">
+                    <h4 id="preview-title">Prévisualisation de l'exercice</h4>
+                    <button class="btn btn-secondary" id="show-code-btn">
+                        <i class="fas fa-code"></i> Voir le code source
+                    </button>
+                </div>
+                <div class="preview-container">
+                    <div class="preview-content" id="preview-content">
+                        <!-- Le contenu de l'exercice sera chargé ici -->
+                    </div>
+                    <div class="code-container" id="code-container">
+                        <div class="code-header">
+                            <span id="code-filename">index.html</span>
+                            <button class="copy-btn" id="copy-code-btn">
+                                <i class="fas fa-copy"></i> Copier le code
+                            </button>
+                        </div>
+                        <pre id="code-content"><code><!-- Le code sera affiché ici --></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+	<div class="container">
+	        <div class="atelier-header">
+            <h2><i class="fas fa-book"></i> Atelier 11: JavaScript 1/2 - Fondamentaux 2</h2>
+        </div>
+		 <!-- Exercice 1 -->
+                <li class="exercice-item">
+                    <div class="exercice-header">
+                        <div>
+                            <span class="exercice-number">1</span>
+                            <span class="exercice-title">Assigner une valeur a une variable</span>
+                        </div>
+                    </div>
+                    <p class="exercice-description">
+                        Cette exercice JavaScript a pour but d'assigner une valeur a une variable.
+                    </p>
+                    
+                    <!-- Capture d'écran ajoutée -->
+                    <div class="screenshot-container">
+                        <h5><i class="fas fa-camera"></i> Capture d'écran de la résolution</h5>
+                        <img src="ex0 1 fonda 2.PNG" alt="Capture d'écran de l'alerte JavaScript" class="screenshot">
+                        <p class="screenshot-caption">Résultat de l'exercice 1 </p>
+                    </div>
+                    
+                    <div class="exercice-actions">
+                        <button class="btn btn-primary" id="executer-1">
+                            <i class="fas fa-play-circle"></i> Exécuter la solution
+                        </button>
+                        <button class="btn btn-secondary" id="preview-1">
+                            <i class="fas fa-eye"></i> Voir le code source
+                        </button>
+                    </div>
+                </li>
+                
+            </ul>
+            
+            <!-- Section de prévisualisation -->
+            <div class="preview-section" id="preview-section" style="display: none;">
+                <div class="preview-header">
+                    <h4 id="preview-title">Prévisualisation de l'exercice</h4>
+                    <button class="btn btn-secondary" id="show-code-btn">
+                        <i class="fas fa-code"></i> Voir le code source
+                    </button>
+                </div>
+                <div class="preview-container">
+                    <div class="preview-content" id="preview-content">
+                        <!-- Le contenu de l'exercice sera chargé ici -->
+                    </div>
+                    <div class="code-container" id="code-container">
+                        <div class="code-header">
+                            <span id="code-filename">index.html</span>
+                            <button class="copy-btn" id="copy-code-btn">
+                                <i class="fas fa-copy"></i> Copier le code
+                            </button>
+                        </div>
+                        <pre id="code-content"><code><!-- Le code sera affiché ici --></code></pre>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+        <div class="container">
+	
+            <p>Atelier JavaScript - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    
+        // Script pour gérer l'affichage du code et l'exécution des exercices
+        document.addEventListener('DOMContentLoaded', function() {
+            const executerBtn1 = document.getElementById('executer-1');
+            const previewBtn1 = document.getElementById('preview-1');
+            const previewSection = document.getElementById('preview-section');
+            const previewContent = document.getElementById('preview-content');
+            const codeContainer = document.getElementById('code-container');
+            const showCodeBtn = document.getElementById('show-code-btn');
+            const copyCodeBtn = document.getElementById('copy-code-btn');
+            const codeContent = document.getElementById('code-content');
+            
+            // Code source de l'exercice 1
+            const exercice1Code = `<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    alert( "I'm JavaScript!" );
+  <\\/script>
+</body>
+</html>`;
+            
+            // Exécuter l'exercice 1
+            executerBtn1.addEventListener('click', function() {
+                alert("I'm JavaScript!");
+            });
+            
+            // Afficher le code de l'exercice 1
+            previewBtn1.addEventListener('click', function() {
+                previewSection.style.display = 'block';
+                previewContent.innerHTML = `
+                    <h4>Simulation de l'exercice 1</h4>
+                    <p>Cliquez sur le bouton ci-dessous pour voir l'alerte :</p>
+                    <button class="btn btn-primary" onclick="alert('I\\'m JavaScript!')">
+                        <i class="fas fa-play-circle"></i> Tester l'alerte
+                    </button>
+                    <p style="margin-top: 1rem;"><strong>Note :</strong> La capture d'écran ci-dessus montre le résultat réel de l'exécution.</p>
+                `;
+                codeContent.textContent = exercice1Code;
+                codeContainer.classList.remove('active');
+                document.getElementById('preview-title').textContent = 'Prévisualisation - Exercice 1: Afficher une alerte';
+                document.getElementById('code-filename').textContent = 'exercice1.html';
+                
+                // Scroll vers la section de prévisualisation
+                previewSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Basculer l'affichage du code
+            showCodeBtn.addEventListener('click', function() {
+                codeContainer.classList.toggle('active');
+                if (codeContainer.classList.contains('active')) {
+                    showCodeBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le code';
+                } else {
+                    showCodeBtn.innerHTML = '<i class="fas fa-code"></i> Voir le code source';
+                }
+            });
+            
+            // Copier le code
+            copyCodeBtn.addEventListener('click', function() {
+                const textToCopy = codeContent.textContent;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = copyCodeBtn.innerHTML;
+                    copyCodeBtn.innerHTML = '<i class="fas fa-check"></i> Copié!';
+                    setTimeout(() => {
+                        copyCodeBtn.innerHTML = originalText;
+                    }, 2000);
+                });
+            });
+        });
+		
+		// Exécuter l'exercice 1
+            executerBtn1.addEventListener('click', function() {
+                alert("I'm JavaScript!");
+            });
+            
+            // Afficher le code de l'exercice 2
+            previewBtn1.addEventListener('click', function() {
+                previewSection.style.display = 'block';
+                previewContent.innerHTML = `
+                    <h4>Simulation de l'exercice 2</h4>
+                    <p>Cliquez sur le bouton ci-dessous pour voir l'alerte :</p>
+                    <button class="btn btn-primary" onclick="alert('I\\'m JavaScript!')">
+                        <i class="fas fa-play-circle"></i> Tester l'alerte
+                    </button>
+                    <p style="margin-top: 1rem;"><strong>Note :</strong> La capture d'écran ci-dessus montre le résultat réel de l'exécution.</p>
+                `;
+                codeContent.textContent = exercice1Code;
+                codeContainer.classList.remove('active');
+                document.getElementById('preview-title').textContent = 'Prévisualisation - Exercice 1: Afficher une alerte';
+                document.getElementById('code-filename').textContent = 'exercice1.html';
+                
+                // Scroll vers la section de prévisualisation
+                previewSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Basculer l'affichage du code
+            showCodeBtn.addEventListener('click', function() {
+                codeContainer.classList.toggle('active');
+                if (codeContainer.classList.contains('active')) {
+                    showCodeBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le code';
+                } else {
+                    showCodeBtn.innerHTML = '<i class="fas fa-code"></i> Voir le code source';
+                }
+            });
+            
+            // Copier le code
+            copyCodeBtn.addEventListener('click', function() {
+                const textToCopy = codeContent.textContent;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = copyCodeBtn.innerHTML;
+                    copyCodeBtn.innerHTML = '<i class="fas fa-check"></i> Copié!';
+                    setTimeout(() => {
+                        copyCodeBtn.innerHTML = originalText;
+                    }, 2000);
+                });
+            });
+        });
+		
+		
+		
+    </script>
+</body>
+</html>
