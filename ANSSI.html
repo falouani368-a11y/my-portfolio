@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ANSSI - Audit Sécurité Web | Questionnaire</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            color: #f0f0f0;
+        }
+
+        /* Conteneur principal style "carte" */
+        .quiz-container {
+            max-width: 780px;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            border-left: 4px solid #f5b81b;
+            border-right: 1px solid rgba(245, 184, 27, 0.3);
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(245, 184, 27, 0.15);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* En-tête ANSSI */
+        .anssi-header {
+            background: #000000cc;
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid #f5b81b40;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .anssi-brand {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .anssi-brand h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #ffffff 20%, #f5b81b 90%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .badge {
+            background: #f5b81b20;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #f5b81b;
+            border: 0.5px solid #f5b81b60;
+            backdrop-filter: blur(2px);
+        }
+        .progress-info {
+            font-size: 0.9rem;
+            background: #1f1f1f;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-weight: 500;
+            color: #f5b81b;
+        }
+        .progress-info span {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Zone de contenu dynamique (question ou résultats) */
+        .quiz-content {
+            padding: 2rem 2rem 1.8rem;
+        }
+
+        /* Carte question */
+        .question-card {
+            background: #0e0e0ecc;
+            border-radius: 1.5rem;
+            padding: 1.8rem 1.5rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid #2c2c2c;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .question-text {
+            font-size: 1.55rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1.8rem;
+            color: #fdfdfd;
+            border-left: 4px solid #f5b81b;
+            padding-left: 1rem;
+        }
+        .choices-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .choice-item {
+            background: #1a1a1a;
+            border-radius: 1rem;
+            transition: all 0.2s;
+            border: 1px solid #2e2e2e;
+        }
+        .choice-item:hover {
+            background: #242424;
+            border-color: #f5b81b70;
+        }
+        .choice-radio {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 1.2rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.3rem;
+            height: 1.3rem;
+            border: 2px solid #6b6b6b;
+            border-radius: 50%;
+            background: #0a0a0a;
+            transition: 0.1s;
+            position: relative;
+            cursor: pointer;
+        }
+        input[type="radio"]:checked {
+            border: 5px solid #f5b81b;
+            background: #0a0a0a;
+            box-shadow: 0 0 0 1px #f5b81b;
+        }
+        .choice-label {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            letter-spacing: -0.2px;
+            flex: 1;
+        }
+        .choice-prefix {
+            font-weight: 700;
+            color: #f5b81b;
+            background: #2a2a2a;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background: #1f1f1f;
+            border: 1px solid #3a3a3a;
+            padding: 0.8rem 1.8rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #dddddd;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: #f5b81b;
+            border-color: #f5b81b;
+            color: #0a0a0a;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(245,184,27,0.2);
+        }
+        .btn-primary:hover {
+            background: #ffcc44;
+            transform: scale(0.97);
+            border-color: #ffcc44;
+            box-shadow: 0 4px 12px rgba(245,184,27,0.3);
+        }
+        .btn-secondary:hover {
+            background: #2c2c2c;
+            border-color: #f5b81b80;
+            color: #f5b81b;
+        }
+        .warning-message {
+            color: #f5b81b;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            text-align: center;
+            background: #1e1e1e;
+            padding: 0.4rem;
+            border-radius: 2rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Résultats finaux */
+        .results-container {
+            background: #0b0b0be6;
+            border-radius: 1.5rem;
+            padding: 0.5rem 0.2rem;
+        }
+        .score-circle {
+            background: linear-gradient(145deg, #1e1e1e, #0a0a0a);
+            border-radius: 2rem;
+            padding: 1.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid #f5b81b60;
+        }
+        .score-number {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #f5b81b;
+        }
+        .detail-answers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            max-height: 460px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+        .result-item {
+            background: #141414;
+            border-radius: 1rem;
+            padding: 0.9rem 1rem;
+            border-left: 4px solid;
+        }
+        .result-correct {
+            border-left-color: #2ecc71;
+        }
+        .result-wrong {
+            border-left-color: #e67e22;
+        }
+        .result-question {
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+        .result-detail {
+            font-size: 0.8rem;
+            color: #bbbbbb;
+        }
+        .restart-btn {
+            background: #2a2a2a;
+            border: 1px solid #f5b81b;
+            color: #f5b81b;
+            margin-top: 1.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            border-top: 1px solid #2c2c2c;
+            padding: 1rem;
+            color: #7a7a7a;
+            background: #05050570;
+        }
+        @media (max-width: 550px) {
+            .quiz-container { margin: 0; }
+            .quiz-content { padding: 1.2rem; }
+            .question-text { font-size: 1.25rem; }
+            .choice-label { font-size: 0.9rem; }
+            .btn { padding: 0.6rem 1.2rem; }
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f1f1f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f5b81b;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container" id="quizApp">
+    <div class="anssi-header">
+        <div class="anssi-brand">
+            <h1>ANSSI</h1>
+            <div class="badge">cyber· sécurité web</div>
+        </div>
+        <div class="progress-info" id="progressIndicator">Question <span id="currentIdxSpan">1</span> / <span id="totalSpan">20</span></div>
+    </div>
+
+    <div class="quiz-content" id="dynamicContent">
+        <!-- contenu généré dynamiquement : question ou résultats -->
+        <div id="questionPanel">
+            <!-- La question unique sera injectée ici -->
+        </div>
+        <div id="resultsPanel" style="display: none;">
+            <!-- Résultats finaux -->
+        </div>
+    </div>
+    <footer>
+        📐 Référentiel ANSSI - Sensibilisation & bonnes pratiques | Évaluation des connaissances
+    </footer>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // 1. Définition des questions (texte + choix)
+    // --------------------------------------------------------------
+    const QUESTIONS_DATA = [
+        { text: "Pourquoi est-il important de sécuriser un site web ?", choices: ["Pour respecter la loi", "Pour empêcher les piratages", "Pour protéger les données utilisateurs", "Toutes les réponses"] },
+        { text: "Quel protocole doit être utilisé pour sécuriser les échanges entre l’utilisateur et le site ?", choices: ["HTTP", "FTP", "HTTPS", "TELNET"] },
+        { text: "Quelle attaque vise à injecter du code dans une base de données ?", choices: ["XSS", "DDoS", "SQL Injection", "Bruteforce"] },
+        { text: "Qu’est-ce que le XSS ?", choices: ["Une attaque qui surcharge le serveur", "Une attaque qui injecte du code JavaScript malveillant", "Une attaque sur les mots de passe", "Une attaque réseau"] },
+        { text: "Quel mécanisme empêche l’exécution de code non autorisé dans le navigateur ?", choices: ["CSP (Content Security Policy)", "Ping", "DNS", "SMTP"] },
+        { text: "Pourquoi faut-il limiter les droits des comptes serveur ?", choices: ["Pour économiser de la place", "Pour réduire l’impact d’un piratage", "Pour accélérer le site", "Pour améliorer le SEO"] },
+        { text: "Quel est le rôle du pare-feu applicatif WAF ?", choices: ["Optimiser les images", "Bloquer les attaques web", "Sauvegarder le site", "Gérer les cookies"] },
+        { text: "Que doit-on faire des mots de passe dans une base de données ?", choices: ["Les stocker en clair", "Les stocker chiffrés ou hachés + salés", "Les envoyer par email", "Les copier dans un fichier texte"] },
+        { text: "Quel en-tête HTTP protège contre les attaques XSS ?", choices: ["X-Frame-Options", "Content-Type", "Content-Security-Policy", "Accept-Language"] },
+        { text: "Une mise à jour régulière du CMS (WordPress, Joomla…) sert à :", choices: ["Ajouter des emojis", "Améliorer la sécurité", "Changer le thème", "Réduire les publicités"] },
+        { text: "Qu’est-ce qu’un certificat SSL ?", choices: ["Un document légal", "Un fichier qui chiffre les échanges via HTTPS", "Un antivirus", "Un logiciel payant"] },
+        { text: "Quel type d’attaque vise à saturer le serveur ?", choices: ["SQL Injection", "DDoS", "Man-in-the-Middle", "CSRF"] },
+        { text: "Le principe du “least privilege” signifie :", choices: ["Donner les droits minimum nécessaires", "Donner tous les droits", "Bloquer Internet", "Tester une application"] },
+        { text: "Pourquoi faut-il utiliser des mots de passe forts pour l’administration ?", choices: ["Pour se rappeler facilement", "Pour empêcher les attaques bruteforce", "Pour accélérer le site", "Pour le référencement"] },
+        { text: "Quelle attaque incite l’utilisateur à effectuer une action non voulue ?", choices: ["CSRF", "DDoS", "Ransomware", "ARP Spoofing"] },
+        { text: "Pourquoi faut-il faire des sauvegardes régulières ?", choices: ["Pour repartir en cas de piratage", "Pour récupérer les contenus supprimés", "Pour corriger les erreurs humaines", "Toutes les réponses"] },
+        { text: "Une URL non filtrée peut permettre :", choices: ["Une injection SQL", "Une faille XSS", "Une navigation non désirée (path traversal)", "Toutes les réponses"] },
+        { text: "Que faut-il vérifier avant de télécharger un plugin ?", choices: ["Le nombre de couleurs", "La réputation et les mises à jour", "Le style du logo", "Le prix"] },
+        { text: "Quel mécanisme protège une API contre l’abus ?", choices: ["Rate limiting", "HTTP", "Java", "Cache navigateur"] },
+        { text: "Qui est responsable de la sécurité du site web ?", choices: ["L’hébergeur seulement", "Le développeur seulement", "Le propriétaire du site seulement", "Tous les acteurs (développeur, hébergeur, propriétaire)"] }
+    ];
+
+    // Réponses correctes (ordre lettre) d'après la liste fournie: D C C B A B B B C B B B A B A D D B A D
+    const CORRECT_LETTERS = [
+        "d", "c", "c", "b", "a", "b", "b", "b", "c", "b",
+        "b", "b", "a", "b", "a", "d", "d", "b", "a", "d"
+    ];
+
+    // Vérification coherence
+    const TOTAL_QS = QUESTIONS_DATA.length;
+
+    // État de l'utilisateur : tableau de réponses (null ou "a","b","c","d")
+    let userAnswers = new Array(TOTAL_QS).fill(null);
+    let currentIndex = 0;          // 0-based
+    let quizFinished = false;       // mode résultats actif ?
+
+    // Éléments DOM
+    const dynamicDiv = document.getElementById("dynamicContent");
+    const questionPanelDiv = document.getElementById("questionPanel");
+    const resultsPanelDiv = document.getElementById("resultsPanel");
+    const progressSpan = document.getElementById("currentIdxSpan");
+    const totalSpanElem = document.getElementById("totalSpan");
+
+    totalSpanElem.innerText = TOTAL_QS;
+
+    // Fonction utilitaire : sauvegarder la réponse actuelle (radio sélectionnée) pour la question courante
+    function saveCurrentAnswer() {
+        if (quizFinished) return;
+        const selectedRadio = document.querySelector('input[name="questionChoice"]:checked');
+        if (selectedRadio) {
+            const selectedVal = selectedRadio.value;   // "a","b","c","d"
+            userAnswers[currentIndex] = selectedVal;
+        } else {
+            // Aucune réponse sélectionnée, on peut laisser null (inchangé)
+            // mais on ne modifie pas l'existant.
+        }
+    }
+
+    // Rendu d'une question (selon currentIndex)
+    function renderCurrentQuestion() {
+        if (quizFinished) return;
+        const qData = QUESTIONS_DATA[currentIndex];
+        const currentAnswer = userAnswers[currentIndex]; // peut être null ou lettre
+
+        let html = `
+            <div class="question-card">
+                <div class="question-text">${escapeHtml(qData.text)}</div>
+                <div class="choices-list" id="choicesList">
+        `;
+        // générer les 4 choix
+        const letters = ["a", "b", "c", "d"];
+        qData.choices.forEach((choice, idx) => {
+            const letter = letters[idx];
+            const checkedAttr = (currentAnswer === letter) ? 'checked' : '';
+            html += `
+                <div class="choice-item">
+                    <label class="choice-radio">
+                        <input type="radio" name="questionChoice" value="${letter}" ${checkedAttr}>
+                        <span class="choice-prefix">${letter.toUpperCase()}</span>
+                        <span class="choice-label">${escapeHtml(choice)}</span>
+                    </label>
+                </div>
+            `;
+        });
+        html += `</div></div>`;
+        questionPanelDiv.innerHTML = html;
+
+        // Attacher événements pour mettre à jour immédiatement le userAnswers au changement
+        const radioButtons = document.querySelectorAll('input[name="questionChoice"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (!quizFinished) {
+                    userAnswers[currentIndex] = e.target.value;
+                }
+            });
+        });
+
+        // Mettre à jour l'indicateur de progression
+        progressSpan.innerText = currentIndex + 1;
+    }
+
+    // Helper anti-XSS simple
+    function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // Navigation précédente
+    function prevQuestion() {
+        if (quizFinished) return;
+        // Sauvegarde réponse actuelle avant de changer
+        saveCurrentAnswer();
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderCurrentQuestion();
+        }
+    }
+
+    // Navigation suivante / terminer
+    function nextOrFinish() {
+        if (quizFinished) return;
+        // Sauvegarde réponse courante (radio)
+        saveCurrentAnswer();
+
+        if (currentIndex === TOTAL_QS - 1) {
+            // Dernière question -> terminer le quiz
+            finishQuiz();
+        } else {
+            currentIndex++;
+            renderCurrentQuestion();
+        }
+    }
+
+    // Calcul du score et affichage des résultats détaillés
+    function finishQuiz() {
+        if (quizFinished) return;
+        // Sauvegarde finale de la réponse courante (au cas où)
+        saveCurrentAnswer();
+        quizFinished = true;
+
+        // Calcul du score
+        let score = 0;
+        const detailedResults = [];
+
+        for (let i = 0; i < TOTAL_QS; i++) {
+            const userAns = userAnswers[i];
+            const correctAns = CORRECT_LETTERS[i];
+            const isCorrect = (userAns === correctAns);
+            if (isCorrect) score++;
+
+            // Préparer texte lisible pour les choix
+            const questionObj = QUESTIONS_DATA[i];
+            const choicesLetters = ["a", "b", "c", "d"];
+            const correctText = questionObj.choices[choicesLetters.indexOf(correctAns)];
+            const userText = (userAns !== null) ? questionObj.choices[choicesLetters.indexOf(userAns)] : "❌ Aucune réponse";
+
+            detailedResults.push({
+                question: questionObj.text,
+                isCorrect: isCorrect,
+                correctAnswer: correctText,
+                userAnswer: userText,
+                userLetter: userAns,
+                correctLetter: correctAns
+            });
+        }
+
+        // Afficher le panneau des résultats
+        renderResultsPanel(score, detailedResults);
+        // Cacher l'affichage de la question
+        questionPanelDiv.style.display = "none";
+        resultsPanelDiv.style.display = "block";
+        // Masquer le progrès header? on garde mais on peut modifier indicateur
+        progressSpan.innerText = "✔️";
+        // Ajouter désactivation des boutons existants dans la nav (on va les cacher ou enlever)
+        const navContainer = document.querySelector(".nav-buttons");
+        if (navContainer) navContainer.style.display = "none";
+    }
+
+    // Générer l'UI des résultats avec style ANSSI
+    function renderResultsPanel(score, details) {
+        const percent = Math.round((score / TOTAL_QS) * 100);
+        let resultHtml = `
+            <div class="results-container">
+                <div class="score-circle">
+                    <div style="font-size:1rem; opacity:0.8;">Score de sécurité</div>
+                    <div class="score-number">${score} / ${TOTAL_QS}</div>
+                    <div style="font-weight:500; margin-top:6px;">${percent}% - ${percent >= 75 ? 'Excellente maîtrise' : (percent >= 50 ? 'Bases solides, à renforcer' : 'Priorité : formation cyber')}</div>
+                </div>
+                <div class="detail-answers">
+        `;
+        details.forEach((det, idx) => {
+            const statusClass = det.isCorrect ? "result-correct" : "result-wrong";
+            const statusIcon = det.isCorrect ? "✓" : "✗";
+            resultHtml += `
+                <div class="result-item ${statusClass}">
+                    <div class="result-question">${idx+1}. ${escapeHtml(det.question)}</div>
+                    <div class="result-detail">
+                        <span style="color:#f5b81b;">${statusIcon} Votre réponse :</span> ${escapeHtml(det.userAnswer)} 
+                        ${!det.isCorrect ? `<span style="color:#aaa;"> | Bonne réponse : ${escapeHtml(det.correctAnswer)}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        });
+        resultHtml += `
+                </div>
+                <button class="btn restart-btn" id="restartQuizBtn">⟳ Recommencer le questionnaire</button>
+            </div>
+        `;
+        resultsPanelDiv.innerHTML = resultHtml;
+
+        // Attacher événement restart
+        const restartBtn = document.getElementById("restartQuizBtn");
+        if (restartBtn) {
+            restartBtn.addEventListener("click", () => {
+                resetAndRestart();
+            });
+        }
+    }
+
+    // Réinitialisation complète du quiz
+    function resetAndRestart() {
+        // Reset state
+        userAnswers = new Array(TOTAL_QS).fill(null);
+        currentIndex = 0;
+        quizFinished = false;
+        // Afficher la question panel et cacher résultats
+        questionPanelDiv.style.display = "block";
+        resultsPanelDiv.style.display = "none";
+        // Rétablir les boutons de navigation s'ils ont été masqués
+        let navContainer = document.querySelector(".nav-buttons");
+        if (!navContainer) {
+            // Si les boutons n'existent pas (cas après restart propre), on les recrée
+            createNavButtons();
+        } else {
+            navContainer.style.display = "flex";
+        }
+        // Réinitialiser l'affichage de progression
+        progressSpan.innerText = "1";
+        // Re-rendre la première question
+        renderCurrentQuestion();
+    }
+
+    // Créer les boutons de navigation (Prev / Next) dynamiquement
+    function createNavButtons() {
+        let existingNav = document.querySelector(".nav-buttons");
+        if (existingNav) existingNav.remove();
+        const navDiv = document.createElement("div");
+        navDiv.className = "nav-buttons";
+        navDiv.innerHTML = `
+            <button class="btn btn-secondary" id="prevBtn">← Précédent</button>
+            <button class="btn btn-primary" id="nextFinishBtn">Suivant →</button>
+        `;
+        dynamicDiv.insertBefore(navDiv, resultsPanelDiv);
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextFinishBtn");
+        if (prevBtn) prevBtn.addEventListener("click", prevQuestion);
+        if (nextBtn) {
+            nextBtn.addEventListener("click", () => {
+                if (!quizFinished) {
+                    // changer le texte du bouton selon la dernière question
+                    if (currentIndex === TOTAL_QS - 1) {
+                        nextBtn.textContent = "✅ Terminer";
+                    } else {
+                        nextBtn.textContent = "Suivant →";
+                    }
+                    nextOrFinish();
+                    // après appel, ajuster le texte pour la nouvelle question si besoin
+                    if (!quizFinished && currentIndex === TOTAL_QS - 1) {
+                        const btn = document.getElementById("nextFinishBtn");
+                        if (btn) btn.textContent = "✅ Terminer";
+                    } else if (!quizFinished) {
+                        const btn = document.getElementById("nextFinishBtn");
+                        if (btn) btn.textContent = "Suivant →";
+                    }
+                }
+            });
+        }
+    }
+
+    // Met à jour dynamiquement le texte du bouton "suivant" selon l'index
+    function updateButtonText() {
+        const nextBtn = document.getElementById("nextFinishBtn");
+        if (nextBtn && !quizFinished) {
+            if (currentIndex === TOTAL_QS - 1) {
+                nextBtn.textContent = "✅ Terminer";
+            } else {
+                nextBtn.textContent = "Suivant →";
+            }
+        }
+    }
+
+    // Observateur pour mettre à jour le texte du bouton à chaque render
+    function patchButtonTextOnRender() {
+        // On utilise un MutationObserver simple ou on modifie après chaque render
+        const observer = new MutationObserver(() => {
+            updateButtonText();
+        });
+        const targetNode = document.getElementById("questionPanel");
+        if (targetNode) {
+            observer.observe(targetNode, { childList: true, subtree: true });
+        }
+        updateButtonText();
+    }
+
+    // Initialisation complète
+    function init() {
+        // S'assurer que les conteneurs sont visibles
+        questionPanelDiv.style.display = "block";
+        resultsPanelDiv.style.display = "none";
+        createNavButtons();
+        renderCurrentQuestion();
+        patchButtonTextOnRender();
+        // Ajustement éventuel au chargement
+        updateButtonText();
+    }
+
+    // Lancer
+    init();
+</script>
+</body>
+</html>
