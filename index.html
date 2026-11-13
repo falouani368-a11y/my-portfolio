@@ -1,366 +1,914 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fadi Alouani — Portfolio BTS SIO</title>
+    <title>FADI ALOUANI // PORTFOLIO 2026</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="fav.png">
     <style>
         :root {
-            --bg: #050705;
-            --card: #0d120d;
-            --glass: rgba(255, 255, 255, .04);
-            --glass-hover: rgba(255, 255, 255, .07);
-            --border: rgba(255, 255, 255, .08);
-            --text: #ffffff;
-            --muted: #9ca3af;
-            --primary-green: #00ff88; 
-            --dark-green: #008f4c;
-            --cyan-accent: #00e5ff;
+            --bg-deep: #050b14;
+            --bg-card: rgba(10, 25, 47, 0.9);
+            --primary-cyan: #64ffda;
+            --accent-blue: #0077b6;
+            --text-main: #ccd6f6;
+            --border-line: rgba(100, 255, 218, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: radial-gradient(circle at top right, rgba(0, 255, 136, .12), transparent 25%),
-                        radial-gradient(circle at left, rgba(0, 229, 255, .08), transparent 25%),
-                        var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #080d08; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary-green), var(--cyan-accent)); border-radius: 20px; }
-
-        /* NAVBAR */
-        .navbar {
-            background: rgba(5, 7, 5, .75);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(255, 255, 255, .05);
-            padding: 18px 0;
-            transition: .3s;
-        }
-        .navbar-brand { font-size: 1.4rem; font-weight: 700; color: white !important; }
-        .nav-link { color: white !important; margin: 0 5px; position: relative; font-weight: 500; font-size: 0.85rem; }
-        .nav-link::after {
-            content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 2px;
-            background: linear-gradient(to right, var(--primary-green), var(--cyan-accent)); transition: .3s;
-        }
-        .nav-link:hover { color: var(--primary-green) !important; }
-        .nav-link:hover::after { width: 100%; }
-
-        /* HERO */
-        .hero { min-height: 100vh; display: flex; align-items: center; text-align: center; padding: 140px 0 100px; }
-        .hero h1 { font-size: 5rem; font-weight: 800; line-height: 1; letter-spacing: -3px; }
-        .hero h1 span { background: linear-gradient(135deg, var(--primary-green), var(--cyan-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { color: var(--muted); max-width: 700px; margin: 25px auto; font-size: 1.1rem; }
-        .profile-img { width: 190px; height: 190px; border-radius: 30px; object-fit: cover; border: 1px solid rgba(255, 255, 255, .08); box-shadow: 0 0 30px rgba(0, 255, 136, .25); margin-bottom: 35px; }
-
-        /* BUTTONS */
-        .btn-custom { padding: 14px 26px; border-radius: 16px; font-weight: 600; border: none; transition: .3s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
-        .btn-primary-custom { background: linear-gradient(135deg, var(--primary-green), var(--dark-green)); color: #050705; }
-        .btn-primary-custom:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 255, 136, .3); color: #000; }
-        .btn-outline-custom { border: 1px solid rgba(255, 255, 255, .15); background: rgba(255, 255, 255, .03); color: white; backdrop-filter: blur(10px); }
-
-        /* SECTION */
-        section { padding: 80px 0; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; }
-        .section-title .line { width: 120px; height: 4px; border-radius: 20px; margin: 25px auto 0; background: linear-gradient(to right, var(--primary-green), var(--cyan-accent)); }
-
-        /* CARD */
-        .project-card {
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-radius: 26px;
-            padding: 30px;
-            height: 100%;
-            transition: .35s ease;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .project-card:hover { transform: translateY(-10px); background: var(--glass-hover); box-shadow: 0 10px 35px rgba(0, 255, 136, .1); }
-        .project-icon { width: 50px; height: 50px; border-radius: 15px; background: linear-gradient(135deg, var(--primary-green), var(--dark-green)); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 1.2rem; color: #050705; }
-        .project-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
-        .project-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 15px; }
-        .btn-pdf { background: linear-gradient(135deg, var(--primary-green), var(--dark-green)); color: #050705; border: none; border-radius: 12px; padding: 10px; width: 100%; font-weight: 600; text-decoration: none; display: inline-block; transition: .3s; font-size: 0.85rem; }
-        .btn-pdf:hover { opacity: 0.9; color: #000; }
-
-        /* CONTACT */
-        .contact-box { background: var(--glass); border: 1px solid var(--border); border-radius: 24px; padding: 40px; }
-        .contact-item { display: flex; gap: 20px; margin-bottom: 25px; }
-        .contact-icon { width: 50px; height: 50px; border-radius: 15px; background: linear-gradient(135deg, var(--primary-green), var(--dark-green)); display: flex; align-items: center; justify-content: center; color: #050705; }
-
-        footer { padding: 40px 0; border-top: 1px solid rgba(255, 255, 255, .05); text-align: center; color: #777; }
         
-        @media(max-width:768px){ .hero h1{ font-size: 3rem; } .navbar-nav{ background: #0d120d; padding: 20px; border-radius: 20px; margin-top: 10px; border: 1px solid var(--border); } }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to bottom, rgba(5, 11, 20, 0.85), rgba(5, 11, 20, 0.98)),
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/1280px-Great_Wave_off_Kanagawa2.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Barre de Navigation */
+        .navbar {
+            background: rgba(5, 11, 20, 0.95) !important;
+            border-bottom: 1px solid var(--primary-cyan);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-family: 'JetBrains Mono';
+            color: var(--primary-cyan) !important;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .nav-link {
+            color: #fff !important;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 15px;
+            font-weight: 500;
+        }
+        .nav-link:hover { color: var(--primary-cyan) !important; }
+
+        /* Hero Section */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; color: #fff; line-height: 1; }
+        .hero h1 span { color: var(--primary-cyan); }
+        
+        .hero-kanji {
+            font-size: 1.2rem;
+            color: var(--primary-cyan);
+            font-family: 'JetBrains Mono';
+            border-left: 3px solid var(--primary-cyan);
+            padding-left: 20px;
+            margin: 30px 0;
+            background: rgba(100, 255, 218, 0.05);
+            padding: 15px;
+        }
+
+        /* Titres Originaux */
+        .section-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin: 100px 0 40px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .section-title span { color: var(--primary-cyan); font-family: 'JetBrains Mono'; font-size: 0.9rem; }
+        .section-title::after { content: ""; height: 1px; background: var(--border-line); flex-grow: 1; }
+
+        /* Cartes de Projets (Originales & Classes) */
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-line);
+            padding: 25px;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .project-card:hover {
+            border-color: var(--primary-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.1);
+        }
+        .project-card h4 {
+            color: #fff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-family: 'JetBrains Mono';
+        }
+        .project-card p { font-size: 0.85rem; color: #8892b0; margin-bottom: 20px; }
+
+        /* Boutons Pro */
+        .btn-action {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono';
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-action:hover {
+            background: var(--primary-cyan);
+            color: var(--bg-deep) !important;
+        }
+
+        .profile-wrap { position: relative; display: inline-block; }
+        .profile-img {
+            max-width: 300px;
+            border: 1px solid var(--primary-cyan);
+            padding: 10px;
+            background: var(--bg-deep);
+            position: relative;
+            z-index: 2;
+        }
+        .profile-wrap::before {
+            content: "";
+            position: absolute;
+            top: 20px; left: 20px;
+            width: 100%; height: 100%;
+            border: 2px solid var(--accent-blue);
+            z-index: 1;
+        }
+
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-line);
+            text-align: center;
+            font-family: 'JetBrains Mono';
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hero { text-align: center; }
+            .profile-wrap { margin-top: 50px; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">FADI ALOUANI</a>
+            <a class="navbar-brand" href="#home">ALOUANI_FADI // 2026-2027</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#home">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#Beauvallet">Mme Beauvallet</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#SLAM">SLAM</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#Sotoca">Mr Sotoca</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Beauvallet">Mme Beauvallet B1</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#SLAM">Option SLAM B2</a></li>
+					 <li class="nav-item"><a class="nav-link" href="#PCC">PCC</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Sotoca">Mr Sotoca B1</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Ateliers">Ateliers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#cybersécurité">Cybersécurité</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cybersécurité">Cybersécurité B3</a></li>
                     <li class="nav-item"><a class="nav-link" href="#veille">Veille</a></li>
-					 <li class="nav-item"><a class="nav-link" href="#Stage">Stage </a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+					<li class="nav-item"><a class="nav-link" href="#stage">Stage</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <img src="my_photo.jpg" class="profile-img" alt="Fadi">
-            <h1>FADI <span>ALOUANI</span></h1>
-            <p>Étudiant en BTS SIO option SLAM. Bienvenue sur mon portfolio regroupant mes travaux académiques, projets de développement et compétences en infrastructure.</p>
-            <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
-                <a href="#Beauvallet" class="btn-custom btn-primary-custom">Explorer mes TP</a>
-                <a href="#" class="btn-custom btn-outline-custom" id="downloadCV">Télécharger CV</a>
+    <section id="home" class="hero container">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h1>FADI<br><span>ALOUANI</span></h1>
+                <div class="hero-kanji">
+                    Étudiant BTS SIO // Option SLAM<br>
+                    Développeur d'Applications Sécurisées<br>
+                    <span style="font-size: 0.8rem; opacity: 0.7;">[ STATUS: OPEN TO PROJECTS ]</span>
+                </div>
+                <a href="#" class="btn-action" style="padding: 15px 30px; font-size: 0.9rem;">Télécharger CV</a>
+            </div>
+            <div class="col-md-5 text-center">
+                <div class="profile-wrap">
+                    <img src="my_photo.jpg" class="profile-img" alt="Fadi Alouani">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION BEAUVALLET -->
-    <section id="Beauvallet">
-        <div class="container">
-            <div class="section-title">
-                <h2>Madame Beauvallet</h2>
-                <p>Algorithmique, Java, PHP & Bases de données</p>
-                <div class="line"></div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-code"></i></div><h4>TP Algo</h4><p>Compte rendu d'activité</p><a href="compte_rendu_tp_algo.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-java"></i></div><h4>Premier pas Java</h4><p>Initiation Java</p><a href="compte_rendu_tp_premier_pas_java.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-java"></i></div><h4>TP3 Java</h4><p>Compte rendu TP3</p><a href="compte_rendu_tp3_java.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-gamepad"></i></div><h4>TP Shifumi</h4><p>Compte rendu TP4</p><a href="compte_rendu_tp4_shifumi.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-laptop-code"></i></div><h4>Algo/Java</h4><p>TP5 - TP5bis</p><a href="compte_rendu_tp5_ algo_java.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-layer-group"></i></div><h4>Procédures</h4><p>Fonctions & Procédures</p><a href="compte_rendu tp_procedure et fonction.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-ship"></i></div><h4>Bataille Navale</h4><p>Compte rendu TP</p><a href="compte_rendu_tp_bataille_navale.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-cube"></i></div><h4>Les Classes</h4><p>Exercices Java</p><a href="exercices _les_classes.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-database"></i></div><h4>XAMPP / SGBD</h4><p>Exercice B1</p><a href="tp_xamp.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-pencil-ruler"></i></div><h4>Scene Builder</h4><p>Interface Graphique</p><a href="TP_scenebuilder.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-search"></i></div><h4>Analyse SI</h4><p>Compte rendu</p><a href="TP_AnalyseSI.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-shopping-cart"></i></div><h4>BDD Leclerc</h4><p>TD4 BDD</p><a href="TD4_BDD_LECLERC.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-paw"></i></div><h4>BDD Zoo</h4><p>TD5 BDD</p><a href="BDD _TD5_ZOO.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-key"></i></div><h4>Droits BDD</h4><p>Accès bases de données</p><a href="BDD.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-php"></i></div><h4>PHP 1 & 2</h4><p>Base & Programmation</p><a href="PHP.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-php"></i></div><h4>PHP 3 & 4</h4><p>Transmission & BDD</p><a href="PHP_2.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-php"></i></div><h4>PHP 5 Sessions</h4><p>Gestion des sessions</p><a href="PHP_3.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-file-archive"></i></div><h4>Archives PHP</h4><p>TP 1, 2, 3, 4</p><a href="PHP.zip" class="btn-pdf">Télécharger ZIP</a></div></div>
-				 <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-laptop-code"></i></div><h4>Projet films</h4><p>Gestion de films</p><a href="Projet_PHP.pdf" class="btn-pdf mb-2">Voir le PDF</a><a href="mymovies-static.zip" class="btn-pdf" style="background: var(--cyan-accent)">Telecharger le zip</a></div></div>
+ 
+  
+  <section id="PCC" class="container">
+    <h2 class="section-title">
+        <span>01.</span> Parcours de certification complémentaire 
+    </h2>
+
+    <div class="row g-3">
+
+      	   <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP01 - MOOC</h4><p>question sur MOOC</p><a href="tpMOOC.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			  
+			  	 <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP02 - MOOC</h4><p>question sur MOOC</p><a href="tpMOOC2.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+				 
+				  <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP03 - MOOC</h4><p>question sur MOOC</p><a href="tpMOOC3.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			
+				  <div class="col-lg-3 col-md-6"><div class="project-card"><h4>  TP04 - My Skills Profile</h4><p>QCM</p><a href="Bilan_TP1_fadi_alouani_2026-11-04.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+
+				<div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP05 - MOOc Portfolio_Certification_etudiant </h4><p>question sur MOOC</p><a href="TP05_Portfolio_Certification_etudiant_2026-10-14.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			 
+			
+
+      
+
+    </div>
+</section>
+
+<section id="Beauvallet" class="container">
+    <h2 class="section-title">
+        <span>01.</span> Madame Beauvallet Bloc 1
+    </h2>
+
+    <div class="row g-3">
+
+        <div class="col-lg-4 col-md-6">
+            <div class="project-card">
+                <h4>TP PGI (Progiciel de Gestion Intégré)</h4>
+                <p>Excel</p>
+                <a href="td_PGI_exercice.pdf" class="btn-action">Ouvrir PDF</a>
+                <a href="PGI_exercice.xls" class="btn-action">Télécharger le Excel</a>
             </div>
         </div>
-    </section>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="project-card">
+                <h4>TD Restaurant</h4>
+                <p>Excel</p>
+                <a href="TD_restaurant.pdf" class="btn-action">Ouvrir PDF</a>
+                <a href="tp_restaurant.xlsx" class="btn-action">Télécharger le Excel</a>
+            </div>
+        </div>
+		
+		 <div class="col-lg-4 col-md-6">
+            <div class="project-card">
+                <h4>[git] TP : l'équipe de la boutique FleurDeLyon</h4>
+                <p>git</p>
+                <a href="tpgit.pdf" class="btn-action">Ouvrir PDF</a>
+               
+            </div>
+        </div>
+
+    </div>
+</section>
 
     <!-- SECTION SLAM -->
-    <section id="SLAM" style="background: rgba(255,255,255,0.02)">
-        <div class="container">
-            <div class="section-title">
-                <h2>Option SLAM</h2>
-                <p>Développement et Modélisation</p>
-                <div class="line"></div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-music"></i></div><h4>TP POO</h4><p>Festival de Musique</p><a href="FestivalDeMusique.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-list"></i></div><h4>TD2 ArrayList</h4><p>Manipulation de listes</p><a href="ArrayList.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-link"></i></div><h4>TD3 JDBC</h4><p>Connexion Java/BDD</p><a href="TD3 _JDBC.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-project-diagram"></i></div><h4>TD4 Diagramme</h4><p>Classes UML</p><a href="TD4_class.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-tasks"></i></div><h4>Gestion Projet</h4><p>Compte rendu TP</p><a href="Gestion_projet.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-github"></i></div><h4>Git & GitHub</h4><p>Versionnement Binôme</p><a href="Git_GitHub.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-university"></i></div><h4>TD7 Banque</h4><p>Programmation</p><a href="TD7-bank.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-microchip"></i></div><h4>Modélisation</h4><p>Conception avancée</p><a href="Modélisation_avancée.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-database"></i></div><h4>SQL Avancé</h4><p>Dossier B2</p><a href="SQL_avance.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-car"></i></div><h4>TD8 CarDealer</h4><p>Programmation</p><a href="TP_cardealer.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-				  <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-car"></i></div><h4> MVC PHP TD1</h4><p>Programmation</p><a href="PHP_TD1.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-            </div>
-        </div>
-    </section>
+    <section id="SLAM" class="container">
+        <h2 class="section-title"><span>02.</span> Option SLAM Bloc 2</h2>
+       <div class="row g-3">
 
-    <!-- SECTION SOTOCA -->
-    <section id="Sotoca">
-        <div class="container">
-            <div class="section-title">
-                <h2>Monsieur Sotoca</h2>
-                <p>Systèmes et Réseaux</p>
-                <div class="line"></div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-camera"></i></div><h4>Capture Écran</h4><p>Compte rendu TP</p><a href="compte_rendu_tp_capture_decran.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-tools"></i></div><h4>Paramétrage</h4><p>Configuration Info</p><a href="compte_rendu_tp_parametrage_info.pdf.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-stethoscope"></i></div><h4>Diagnostic</h4><p>Logiciels de test</p><a href="compte_rendu_tp_logiciel_diagnostic.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-terminal"></i></div><h4>TP CMD</h4><p>Lignes de commandes</p><a href="compte_rendu tp_CMD.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-building"></i></div><h4>TechCorp</h4><p>Étude de cas</p><a href="compte_rendu_tp_techcorp.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-linux"></i></div><h4>Scénario Linux</h4><p>Administration B1</p><a href="tp_linux.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-server"></i></div><h4>Active Directory</h4><p>Installation AD</p><a href="TP2 L'Active Directory.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-network-wired"></i></div><h4>Connexion Domaine</h4><p>TP3 AD</p><a href="TP_3AD.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-				 <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-network-wired"></i></div><h4>TP4 Le rôle DHCP</h4><p>TP4 DHCP</p><a href="TP4_DHCP.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-			 <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-laptop-code"></i></div><h4>QCM</h4><p>ANSSI</p><a href="ANSSI.pdf" class="btn-pdf mb-2">Voir le PDF</a><a href="ANSSI.html" class="btn-pdf" style="background: var(--cyan-accent)">Telecharger l'HTML</a></div></div>
-             <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-network-wired"></i></div><h4> Stratégies de groupes - GPO (Apprentissage)</h4><p>TP5 GPO</p><a href="TP5_GPO.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-			</div>
+    <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP Symfony</h4>
+            <p>Création d'une application web</p>
+            <a href="tp-sym.pdf" class="btn-action">Ouvrir PDF</a>
+            <a href="eventify.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	
+	 <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP Instalation FLutter</h4>
+            <p> FLutter/Dart</p>
+            <a href="TPflutter.pdf" class="btn-action">Ouvrir PDF</a>
+            
+        </div>
+    </div>
+	 <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD1</h4>
+            <p>Application MVC en PHP</p>
+            <a href="MVC PHP TD1.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD1.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD2</h4>
+            <p>Application MVC en PHP</p>
+            <a href="MVC PHP TD2.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD2.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	
+	 <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD3</h4>
+            <p>Application MVC en PHP</p>
+            <a href="MVC PHP TD3.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD3.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	 <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD4</h4>
+            <p>Application MVC en PHP</p>
+            <a href="MVC PHP TD4.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD4.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	 <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD5</h4>
+            <p>Application MVC en PHP</p>
+            <a href="MVC PHP TD5.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD5.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	 <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD6</h4>
+            <p>Application MVC en PHP</p>
+            <a href="MVC PHP TD6.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD6.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD7</h4>
+            <p>TD7 – Cookies & sessions (Panier et préférences) </p>
+            <a href="MVC PHP TD7.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD7.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>TP MVC PHP TD8</h4>
+            <p>TD8 – Authentification & validation par email </p>
+            <a href="MVC PHP TD8.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="MVC PHP TD8.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4>Exercices DART</h4>
+            <p>Langues DART</p>
+            <a href="ex-dart.pdf" class="btn-action">Ouvrir PDF</a>
 			
         </div>
-    </section>
-
-  <!-- SECTION ATELIERS (M. Sotoca, Mme Beauvallet) -->
-    <section id="Ateliers" style="background: rgba(255,255,255,0.02)">
-        <div class="container">
-            <div class="section-title">
-                <h2>Ateliers M. Sotoca, Mme Beauvallet</h2>
-                <p>Comptes rendus d'activités et TP techniques</p>
-                <div class="line"></div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-css3-alt"></i></div><h4>TP CSS</h4><p>Atelier 03</p><a href="compte_rendu_tp_atelir03_css.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-user-tie"></i></div><h4>TP Portfolio</h4><p>Création personnelle</p><a href="compte_rendu_tp_portfolio.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-html5"></i></div><h4>TP HTML</h4><p>Bases du web</p><a href="compte_rendu_tp_html.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-code"></i></div><h4>HTML/CSS Avancé 1</h4><p>Atelier 04</p><a href="compte_rendu tp_atelier04.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-code"></i></div><h4>HTML/CSS Avancé 2</h4><p>Atelier 05</p><a href="compte_rendu tp_atelier05.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-check-square"></i></div><h4>Formulaires</h4><p>Atelier 07 : TD4</p><a href="compte_rendu tp_atelier07.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-mobile-alt"></i></div><h4>Responsive Design</h4><p>Atelier 07 : TD5</p><a href="compte_rendu tp_atelie.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-file-contract"></i></div><h4>Cahier des charges</h4><p>Atelier 09 : TP1</p><a href="Atelier 09TP1_Cahier_des_charges.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-user-shield"></i></div><h4>Sécurité Info</h4><p>Atelier 10 : TP2</p><a href="Sécurité_informatique.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-js"></i></div><h4>Javascript 1/2</h4><p>Atelier 11</p><a href="Javascript1sur2.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-js"></i></div><h4>Javascript 2/2</h4><p>Atelier 12</p><a href="Javascript2sur2.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fab fa-js"></i></div><h4>Javascript 2/2</h4><p>Atelier 13</p><a href="Javascript3sur2.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-globe"></i></div><h4>Javascript 2/2</h4><p>Atelier 14 (Web)</p><a class='btn-pdf' href='/index,perso'>Voir l'HTML</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-project-diagram"></i></div><h4>Gestion Projet</h4><p>Méthodologie</p><a href="Gestion_projet.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-running"></i></div><h4>Manif. Sportives</h4><p>Gestion d'activités</p><a href=".pdf" class="btn-pdf">Voir le PDF</a></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION CYBERSECURITE (B3) -->
-    <section id="cybersécurité">
-        <div class="container">
-            <div class="section-title">
-                <h2>B3 Cybersécurité</h2>
-                <p>Protection, Traitement et Réseaux sécurisés</p>
-                <div class="line"></div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-database"></i></div><h4>Traitement Données</h4><p>Compte rendu TP</p><a href="compte rendu_TP_traitement_donner.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-hdd"></i></div><h4>Serveur NAS</h4><p>Configuration</p><a href="compte_rendu_tp_serveur_NAS.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-shield-alt"></i></div><h4>Question PIA</h4><p>Analyse d'impact</p><a href="compte_rendu tp_question_PIA.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-book"></i></div><h4>Thème 2 - TP1</h4><p>Chapitre 3</p><a href="compte_rendu tp_atelier_th2_tp1.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-edit"></i></div><h4>Application</h4><p>Exercice d'application</p><a href="exercice_d'application.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-microchip"></i></div><h4>TH2 : CH3 TD2</h4><p>Sécurité B3</p><a href="b3_TH2_CH3_TD2.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-network-wired"></i></div><h4>TH3 : CH4 TD1</h4><p>Réseaux sécurisés</p><a href="TH3 _CH4.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-network-wired"></i></div><h4>TH3 : CH4 TD2</h4><p>Réseaux sécurisés</p><a href="TH3 _CH4_TD2.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-lock"></i></div><h4>TH3 : CH5 TD1</h4><p>Sécurité avancée</p><a href="TH3_TD1.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-project-diagram"></i></div><h4>TH3 : CH5 TD2</h4><p>Dossier PDF + Packet Tracer</p><a href="CH5 _TD2.pdf" class="btn-pdf mb-2">Voir le PDF</a><a href="paket tracer tp fa.pkt" class="btn-pdf" style="background: var(--cyan-accent)">Voir le .PKT</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-snowflake"></i></div><h4>Deep Freeze</h4><p>Hack TP16</p><a href="Freeze.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-laptop-code"></i></div><h4>CH5 : Application</h4><p>PDF + Packet Tracer</p><a href="Ex_application.pdf" class="btn-pdf mb-2">Voir le PDF</a><a href="exo chap 5.pkt" class="btn-pdf" style="background: var(--cyan-accent)">Voir le .PKT</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-bug"></i></div><h4>Web App Sec</h4><p>TD9 : Protection</p><a href="TD9.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-spider"></i></div><h4>Portswigger</h4><p>TD24 : Pentest</p><a href="portswiger.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION VEILLE TECHNOLOGIQUE -->
-    <section id="veille" style="background: rgba(255,255,255,0.02)">
-        <div class="container">
-            <div class="section-title">
-                <h2>Veille Technologique</h2>
-                <div class="line"></div>
-            </div>
-            <div class="row g-4 justify-content-center">
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card">
-                        <div class="project-icon"><i class="fas fa-search"></i></div>
-                        <h4>Rapport de Veille</h4>
-                        <p>Synthèse des recherches technologiques</p>
-                        <a href="veille_technilogique.pdf" class="btn-pdf">Voir le PDF</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="project-card">
-                        <div class="project-icon"><i class="fas fa-play-circle"></i></div>
-                        <h4>Présentation Veille</h4>
-                        <p>Support Diaporama</p>
-                        <a href="diapo veille.pdf" class="btn-pdf">Voir le PDF</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-	  <section id="Stage">
-	  <div class="container">
-            <div class="section-title">
-                <h2>Stage en entreprise </h2>
-                <p>Option slam</p>
-                <div class="line"></div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-database"></i></div><h4>stage 1 SGPP</h4><p>Compte rendu TP</p><a href="Stage1.pdf" class="btn-pdf">Voir le PDF</a></div></div>
-               <div class="col-lg-4 col-md-6"><div class="project-card"><div class="project-icon"><i class="fas fa-music"></i></div><h4>Site stage</h4><p>site sgpp/maddalon</p><a href="index - Copie.html" class="btn-html">Voir l'html</a></div></div>
-            </div>
+    </div>
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TD 5 : Initiation au langage PL/pgSQL </h4>
+            <p>langage PL/pgSQL</p>
+            <a href="TDPLpgSQL.pdf" class="btn-action">Ouvrir PDF</a>
+			<a href="tp postgre.sql" class="btn-action">Ouvir le .sql</a>
 			
         </div>
+    </div>
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TD 6 : langage PL/pgSQL </h4>
+            <p>langage PL/pgSQL</p>
+            <a href="TPostgre6.pdf" class="btn-action">Ouvrir PDF</a>
+			<a href="HHBDirect_PostgreSQL.sql" class="btn-action">Ouvir le .sql</a>
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TD7 : les curseurs</h4>
+            <p>langage PL/pgSQL (les curseur)</p>
+            <a href="plsql.pdf" class="btn-action">Ouvrir PDF</a>
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TP : Flutter</h4>
+            <p>Initiation / mise en pratique flutter</p>
+            <a href="TP_flutter.pdf" class="btn-action">Ouvrir PDF</a>
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TP : Interface utilisateur flutter 1,2,3</h4>
+            <p> Flutter : widget,login...</p>
+            <a href="tpinterflutter.pdf" class="btn-action">Ouvrir PDF</a>
+			<a href="tp interface flutter.zip" class="btn-action">Télécharger le ZIP</a>
+			
+        </div>
+    </div>
+	
+		<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TP : FIREBASE</h4>
+            <p>Initiation a Firebase</p>
+            <a href="TPfirebase.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="firebase_flutter.zip" class="btn-action">Télécharger le ZIP</a>
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TP : SUPABASE</h4>
+            <p>Initiation et exercice SUPABASE</p>
+            <a href="TPsupabase.pdf" class="btn-action">Ouvrir PDF</a>
+			
+        </div>
+    </div>
+
+		   <div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> Controle php symfony </h4>
+            <p> PHP & Symfony  </p>
+            <a href="mediatheque-start.zip" class="btn-action">Ouvrir ZIP</a>
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> [Projet] Colloc' gestion de colocation</h4>
+            <p>Flutter et Supabase</p>
+            <a href="TP_coloc.pdf" class="btn-action">Ouvrir PDF</a>
+			<a href="tp_coloc.zip" class="btn-action">Télécharger le ZIP</a>
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TD 1 : Les Triggers </h4>
+            <p>Exercices</p>
+            <a href="triggers.pdf" class="btn-action">Ouvrir PDF</a>
+			
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> TD 2 : Les Triggers </h4>
+            <p>Exercices</p>
+            <a href="triggers 2.pdf" class="btn-action">Ouvrir PDF</a>
+			
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> [REACT] TP1  : installation et découverte </h4>
+            <p>Exercices</p>
+            <a href="tpreact.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="tickets-app.zip" class="btn-action">Télécharger le ZIP</a>
+			
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> [REACT] TP2 : gestion d'état, formulaires et API </h4>
+            <p>Exercices</p>
+            <a href="tpreact2.pdf" class="btn-action">Ouvrir PDF</a>
+			 <a href="tickets-app2.zip" class="btn-action">Télécharger le ZIP</a>
+			
+			
+        </div>
+    </div>
+	
+	<div class="col-lg-4 col-md-6">
+        <div class="project-card">
+            <h4> Controle flutter </h4>
+            <p> Flutter & Dart : gestion livres   </p>
+            <a href="mediatech_eval_flutter.zip" class="btn-action">Ouvrir ZIP</a>
+			
+        </div>
+    </div>
+	
+
+</div>
+
     </section>
 
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Me Contacter</h2>
-                <div class="line"></div>
+    <!-- SECTION MR SOTOCA -->
+    <section id="Sotoca" class="container">
+        <h2 class="section-title"><span>03.</span> Monsieur Sotoca Bloc 1</h2>
+        <div class="row g-3">
+            <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP patrimoine informatique</h4><p>question patrimoine informatique</p><a href="TPpatrimoine.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			
+			 <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP02 - Veille sur GLPI</h4><p>question sur GLPI</p><a href="TPglpi.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			 
+			  
+				  <div class="col-lg-3 col-md-6"><div class="project-card"><h4>   TP04 - Travaux post installation de GLPI</h4><p>Post GLPI</p><a href="TPostGLPI.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+				  
+				   <div class="col-lg-3 col-md-6"><div class="project-card"><h4>  TP05 - GLPI Gestion des incidents (Helpdesk)</h4><p>Ticket GLPI</p><a href="TPGLPI5.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+				   
+				     <div class="col-lg-3 col-md-6"><div class="project-card"><h4>    TP06 - GLPI - Déploiement de logiciel</h4><p>Déploiement</p><a href="tp6 glpi.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			 
+			
+			 
+			  <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP QCM GLPI</h4><p>question GLPI</p><a href="Opération GLPI · Feuille de route interactive.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			  
+			    <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP07 GLPI - Guide utilisateur</h4><p>question GLPI</p><a href="TPGLPI7.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+			  
+		
+			  
+			  
+				
+           
+        </div>
+    </section>
+
+    <!-- SECTION ATELIERS -->
+    <section id="Ateliers" class="container">
+        <h2 class="section-title"><span>04.</span> Ateliers Professionnels</h2>
+        <div class="row g-3">
+            <div class="col-lg-3 col-md-6"><div class="project-card"><h4>TP GSB-APP</h4><p>Atelier</p><a href="AP-GSB.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+           
+        </div>
+    </section>
+
+    <!-- SECTION cyberSECURITE -->
+    <section id="cybersécurité" class="container">
+        <h2 class="section-title"><span>05.</span> Cybersécurité</h2>
+        <div class="row g-3">
+            <div class="col-lg-4 col-md-6"><div class="project-card"><h4>TP intrusion KALI-LINUX</h4><p>TP1 B3 KALI-LINUX</p><a href="TP1-b3.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+
+ <div class="col-lg-4 col-md-6"><div class="project-card"><h4>TP rapport d'intrusion (pentest) </h4><p>TP1 B3 KALI-LINUX</p><a href="Rapport_pentest.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+          
+ <div class="col-lg-4 col-md-6"><div class="project-card"><h4>TP Hacking sans installation </h4><p>TP2 B3 Hacking sans installation</p><a href="tp2hack.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+        </div>
+
+    </section>
+
+  
+  <!-- SECTION VEILLE -->
+    <section id="veille" class="container">
+        <h2 class="section-title"><span>06.</span> Veille Technologique</h2>
+        
+        <!-- Cartes des documents PDF -->
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-5"><div class="project-card"><h4>Synthèse Veille</h4><p>Rapport annuel</p><a href="veille_technilogique.pdf" class="btn-action">Ouvrir PDF</a></div></div>
+            <div class="col-md-5"><div class="project-card"><h4>Support Présentation</h4><p>Diaporama final</p><a href="Veille-Technologique-Cybersecurite-en-Entreprise-2025-2026.pptx" class="btn-action">Ouvrir PDF</a></div></div>
+        </div>
+
+        <!-- Outils, Paramétrage, Méthodologie & Historisation -->
+        <div class="row g-4 mt-4">
+            <!-- 1. Outils utilisés -->
+            <div class="col-lg-6">
+                <div class="project-card">
+                    <h4><i class="fa-solid fa-wrench me-2" style="color: var(--primary-cyan);"></i>Outils Utilisés</h4>
+                    <p>Ensemble des solutions et plateformes mobilisées pour la collecte et la détection :</p>
+                    <ul class="list-unstyled" style="font-size: 0.85rem; color: #8892b0;">
+                        <li class="mb-2"><strong style="color: #fff;">• Scan & SBOM :</strong> Trivy (Aqua Security), Syft, Anchore Grype, CycloneDX CLI.</li>
+                        <li class="mb-2"><strong style="color: #fff;">• Moteurs de recherche :</strong> Recherche avancée Google (Opérateurs booléens, filtres).</li>
+                        <li class="mb-2"><strong style="color: #fff;">• Organismes & Flux officiels :</strong> ANSSI, CERT-FR, CISA, Cybermalveillance.gouv.fr.</li>
+                    </ul>
+                </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="contact-box">
-                        <div class="contact-item">
-                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                            <div><h5>Email</h5><p>falouani368@gmail.com</p></div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                            <div><h5>Téléphone</h5><p>07 69 43 94 21</p></div>
-                        </div>
+
+            <!-- 2. Paramétrage effectué -->
+            <div class="col-lg-6">
+                <div class="project-card">
+                    <h4><i class="fa-solid fa-sliders me-2" style="color: var(--primary-cyan);"></i>Paramétrage Effectué</h4>
+                    <p>Configuration des alertes automatisées et ciblage de la recherche :</p>
+                    <ul class="list-unstyled" style="font-size: 0.85rem; color: #8892b0;">
+                        <li class="mb-2"><strong style="color: #fff;">• Mots-clés surveillés :</strong> <code>ransomware entreprise</code>, <code>cybersécurité PME</code>, <code>CVE critique</code>, <code>attaque supply chain</code>, <code>phishing IA</code>.</li>
+                        <li class="mb-2"><strong style="color: #fff;">• Filtres & Réception :</strong> Langues (Français / Anglais), Zone mondiale, Réception par email quotidienne via Google Alerts.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. Méthodologie et régularité -->
+            <div class="col-12">
+                <div class="project-card">
+                    <h4><i class="fa-solid fa-arrows-rotate me-2" style="color: var(--primary-cyan);"></i>Méthodologie et Régularité</h4>
+                    <div class="table-responsive mt-3">
+                        <table class="table table-dark table-bordered border-secondary align-middle mb-0" style="font-size: 0.85rem; background: transparent;">
+                            <thead>
+                                <tr style="color: var(--primary-cyan); font-family: 'JetBrains Mono';">
+                                    <th>Étape</th>
+                                    <th>Description</th>
+                                    <th>Fréquence</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: #8892b0;">
+                                <tr>
+                                    <td><strong style="color: #fff;">Collecte</strong></td>
+                                    <td>Alertes Google, sites officiels (CERT-FR, CISA), blogs spécialisés</td>
+                                    <td>Quotidienne</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #fff;">Tri</strong></td>
+                                    <td>Sélection des informations pertinentes et filtrage du bruit</td>
+                                    <td>Hebdomadaire</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #fff;">Analyse</strong></td>
+                                    <td>Évaluation de l'impact des vulnérabilités pour les entreprises</td>
+                                    <td>Mensuelle</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #fff;">Historisation</strong></td>
+                                    <td>Ajout de l'actualité qualifiée dans le tableau de suivi</td>
+                                    <td>À chaque actualité</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #fff;">Synthèse</strong></td>
+                                    <td>Mise à jour et rédaction du rapport de veille annuel</td>
+                                    <td>Mensuelle</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
+            <!-- 4. Tableau d'historisation complet -->
+            <div class="col-12">
+                <div class="project-card">
+                    <h4><i class="fa-solid fa-table-list me-2" style="color: var(--primary-cyan);"></i>Tableau d'Historisation  (2025-2027)</h4>
+                    <p class="mb-3">Suivi chronologique des actualités cybersécurité extraites via l'outil SYFT (du plus récent au plus ancien) :</p>
+                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                        <table class="table table-dark table-hover table-bordered border-secondary align-middle mb-0" style="font-size: 0.8rem;">
+                            <thead style="position: sticky; top: 0; background-color: var(--bg-deep); z-index: 1;">
+                                <tr style="color: var(--primary-cyan); font-family: 'JetBrains Mono';">
+                                    <th style="width: 110px;">Date</th>
+                                    <th>Informations</th>
+                                    <th style="width: 140px;">Source</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: #8892b0;">
+                                <tr>
+                                    <td>10/09/2026</td>
+                                    <td>L'ENISA obtient un accès à des modèles d'IA avancés afin d'évaluer leurs capacités et leurs risques en matière de cybersécurité. Cette démarche montre l'importance croissante de l'évaluation de la sécurité des modèles d'IA.</td>
+                                    <td><span class="badge bg-secondary">Reuters</span></td>
+                                </tr>
+                                <tr>
+                                    <td>09/09/2026</td>
+                                    <td>Anthropic révèle un nouvel incident de cybersécurité impliquant une première version de Claude Opus 4.6 ayant accédé à des systèmes externes lors de tests. L'incident met en évidence les risques liés à l'autonomie croissante des agents IA.</td>
+                                    <td><span class="badge bg-secondary">Reuters</span></td>
+                                </tr>
+                                <tr>
+                                    <td>08/09/2026</td>
+                                    <td>Des chercheurs de Google alertent sur le vol de données propriétaires liées à l'IA : modèles, code source, prompts et données de recherche sont désormais des cibles d'extorsion pour les cybercriminels.</td>
+                                    <td><span class="badge bg-secondary">The Register</span></td>
+                                </tr>
+                                <tr>
+                                    <td>08/09/2026</td>
+                                    <td>Microsoft publie les mises à jour de sécurité de septembre 2026. Les organisations sont invitées à appliquer rapidement les correctifs de sécurité sur les systèmes concernés.</td>
+                                    <td><span class="badge bg-secondary">Microsoft</span></td>
+                                </tr>
+                                <tr>
+                                    <td>04/09/2026</td>
+                                    <td>Des agents IA d'OpenAI ont été impliqués dans un incident ayant conduit à la prise de contrôle temporaire d'un site web de programmation. Cette actualité illustre les difficultés de contrôle et de surveillance des agents autonomes.</td>
+                                    <td><span class="badge bg-secondary">Reuters</span></td>
+                                </tr>
+                                <tr>
+                                    <td>03/09/2026</td>
+                                    <td>OpenAI annonce un engagement d'un milliard de dollars sous forme d'accès subventionné à des outils de cybersécurité utilisant l'IA, de formations et de support technique pour les organisations protégeant des services critiques.</td>
+                                    <td><span class="badge bg-secondary">Reuters</span></td>
+                                </tr>
+                                <tr>
+                                    <td>03/09/2026</td>
+                                    <td>Le CERT-EU publie son Cyber Brief d'août 2026. Le rapport relève notamment des campagnes de spearphishing, une compromission de la supply chain via des dépendances Rust falsifiées et plusieurs incidents impliquant des systèmes d'IA.</td>
+                                    <td><span class="badge bg-secondary">CERT-EU</span></td>
+                                </tr>
+                                <tr>
+                                    <td>27/08/2026</td>
+                                    <td>Plus de 100 entreprises technologiques demandent un renforcement des défenses contre les futures cyberattaques utilisant l'intelligence artificielle.</td>
+                                    <td><span class="badge bg-secondary">Reuters</span></td>
+                                </tr>
+                                <tr>
+                                    <td>18/08/2026</td>
+                                    <td>La CISA ajoute plusieurs nouvelles vulnérabilités exploitées à son catalogue KEV, notamment des failles concernant Microsoft, VMware et Apple.</td>
+                                    <td><span class="badge bg-secondary">CISA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>12/08/2026</td>
+                                    <td>Les cybercriminels poursuivent leurs campagnes de ransomware contre les entreprises, notamment par le vol de données avant le chiffrement des systèmes.</td>
+                                    <td><span class="badge bg-secondary">eSecurityPlanet</span></td>
+                                </tr>
+                                <tr>
+                                    <td>07/08/2026</td>
+                                    <td>Les campagnes de ransomware continuent de viser les organisations et les entreprises, avec une forte utilisation du vol et de l'extorsion de données.</td>
+                                    <td><span class="badge bg-secondary">Cyber Security</span></td>
+                                </tr>
+                                <tr>
+                                    <td>27/07/2026</td>
+                                    <td>Des agents d'intelligence artificielle autonomes démontrent de nouvelles capacités pour identifier et exploiter des failles dans des infrastructures informatiques.</td>
+                                    <td><span class="badge bg-secondary">Computing News</span></td>
+                                </tr>
+                                <tr>
+                                    <td>20/07/2026</td>
+                                    <td>Les attaques par ransomware continuent de cibler les entreprises et les infrastructures, avec des techniques d'extorsion et de vol de données.</td>
+                                    <td><span class="badge bg-secondary">eSecurityPlanet</span></td>
+                                </tr>
+                                <tr>
+                                    <td>14/07/2026</td>
+                                    <td>Microsoft publie son Patch Tuesday de juillet et corrige un grand nombre de vulnérabilités, dont certaines sont déjà exploitées par des attaquants.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>06/07/2026</td>
+                                    <td>Une vulnérabilité critique d'Adobe ColdFusion est exploitée rapidement après sa divulgation, obligeant les organisations concernées à appliquer les correctifs.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>29/06/2026</td>
+                                    <td>Des équipements FortiGate exposés sur Internet sont ciblés afin de voler des identifiants et d'obtenir un accès aux réseaux des organisations.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>22/06/2026</td>
+                                    <td>L'opération Endgame permet de démanteler une infrastructure utilisée pour diffuser des logiciels malveillants et mener des cyberattaques.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>15/06/2026</td>
+                                    <td>Des plugins JetBrains malveillants sont utilisés pour voler des clés API liées à l'intelligence artificielle sur les postes de développeurs.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>08/06/2026</td>
+                                    <td>Une vulnérabilité critique d'Oracle PeopleSoft est exploitée contre de nombreuses organisations, démontrant les risques liés aux applications professionnelles.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>01/06/2026</td>
+                                    <td>La campagne Miasma/Shai-Hulud cible notamment npm, PyPI et Microsoft Azure afin de récupérer des identifiants et des données sensibles.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>25/05/2026</td>
+                                    <td>Des dépôts GitHub et des packages npm sont compromis, confirmant que les attaques contre la supply chain logicielle représentent un risque important pour les entreprises.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>20/05/2026</td>
+                                    <td>Plusieurs vulnérabilités affectant Microsoft Defender et Azure sont corrigées et certaines sont ajoutées au catalogue des vulnérabilités exploitées de la CISA.</td>
+                                    <td><span class="badge bg-secondary">CISA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>12/05/2026</td>
+                                    <td>Microsoft corrige 120 vulnérabilités, dont une faille critique affectant Outlook et pouvant permettre des attaques contre les utilisateurs.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>04/05/2026</td>
+                                    <td>Une campagne de phishing de type AiTM cible des milliers d'utilisateurs et cherche à récupérer leurs jetons de session afin de prendre le contrôle des comptes.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>27/04/2026</td>
+                                    <td>La campagne Shai-Hulud touche plusieurs écosystèmes logiciels et cherche notamment à voler des identifiants dans les chaînes CI/CD.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>20/04/2026</td>
+                                    <td>Une vulnérabilité liée au Model Context Protocol (MCP) peut permettre l'exécution de commandes et pose de nouveaux risques pour les entreprises utilisant des outils d'intelligence artificielle.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>14/04/2026</td>
+                                    <td>Microsoft signale une vulnérabilité activement exploitée affectant plusieurs de ses produits professionnels.</td>
+                                    <td><span class="badge bg-secondary">CISA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>06/04/2026</td>
+                                    <td>Des cyberattaques ciblent les environnements cloud et de développement, montrant l'importance de sécuriser les outils et infrastructures utilisés par les entreprises.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>30/03/2026</td>
+                                    <td>Une attaque de supply chain touche plusieurs outils logiciels, dont Axios, Trivy et LiteLLM, avec un risque de vol d'identifiants dans les environnements CI/CD.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>23/03/2026</td>
+                                    <td>Une campagne TeamPCP compromet plusieurs outils et packages open source utilisés par les développeurs.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>16/03/2026</td>
+                                    <td>La campagne Glass Worm compromet des dépôts GitHub, des packages npm et des extensions VS Code, illustrant les risques liés à la supply chain logicielle.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>10/03/2026</td>
+                                    <td>Microsoft corrige de nombreuses vulnérabilités, dont plusieurs pouvant permettre une exécution de code à distance.</td>
+                                    <td><span class="badge bg-secondary">CISA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>03/03/2026</td>
+                                    <td>Des attaques ciblent Cisco Catalyst SD-WAN, mettant en évidence les risques liés aux équipements réseau utilisés par les entreprises.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>23/02/2026</td>
+                                    <td>Des équipements FortiGate sont ciblés par des attaques permettant aux cybercriminels d'obtenir un accès aux réseaux d'entreprise.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>18/02/2026</td>
+                                    <td>Une vulnérabilité critique de Google Chrome est activement exploitée et peut permettre l'exécution de code malveillant sur les machines concernées.</td>
+                                    <td><span class="badge bg-secondary">CISA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>10/02/2026</td>
+                                    <td>Microsoft publie plusieurs correctifs de sécurité concernant des vulnérabilités critiques affectant Windows et Azure.</td>
+                                    <td><span class="badge bg-secondary">CISA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>02/02/2026</td>
+                                    <td>Des cyberattaques ciblent des infrastructures énergétiques et exploitent notamment des vulnérabilités présentes dans des équipements Fortinet et Ivanti.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>26/01/2026</td>
+                                    <td>Une campagne de vishing cible les utilisateurs de Google, Microsoft et Okta afin de récupérer leurs identifiants et contourner l'authentification multifacteur.</td>
+                                    <td><span class="badge bg-secondary">Cybersecurity Dive</span></td>
+                                </tr>
+                                <tr>
+                                    <td>19/01/2026</td>
+                                    <td>Une attaque par ransomware touche un hôpital belge, tandis que des vulnérabilités affectant Cisco et AWS présentent également des risques pour les entreprises.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>13/01/2026</td>
+                                    <td>Microsoft corrige plusieurs vulnérabilités critiques, dont une vulnérabilité activement exploitée permettant potentiellement une exécution de code.</td>
+                                    <td><span class="badge bg-secondary">CISA</span></td>
+                                </tr>
+                                <tr>
+                                    <td>05/01/2026</td>
+                                    <td>La campagne Shai-Hulud montre les risques liés aux dépendances et packages utilisés par les développeurs dans les entreprises.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>29/12/2025</td>
+                                    <td>Des cyberattaques exploitent des logiciels, bases de données et extensions de navigateur pour accéder aux systèmes des entreprises.</td>
+                                    <td><span class="badge bg-secondary">CyberSecBrief</span></td>
+                                </tr>
+                                <tr>
+                                    <td>22/12/2025</td>
+                                    <td>Le NIST investit 20 millions de dollars dans deux centres consacrés à l'intelligence artificielle, dont un dédié à la cybersécurité des infrastructures critiques.</td>
+                                    <td><span class="badge bg-secondary">NIST</span></td>
+                                </tr>
+                                <tr>
+                                    <td>17/12/2025</td>
+                                    <td>Des extensions malveillantes de Visual Studio Code infectent les machines des développeurs et représentent un risque pour la chaîne d'approvisionnement logicielle.</td>
+                                    <td><span class="badge bg-secondary">Cyware</span></td>
+                                </tr>
+                                <tr>
+                                    <td>11/12/2025</td>
+                                    <td>Une campagne de phishing « ConsentFix » cible les comptes Microsoft en utilisant Azure CLI et des techniques OAuth permettant de contourner certaines protections MFA.</td>
+                                    <td><span class="badge bg-secondary">BleepingComputer / CERT-EU</span></td>
+                                </tr>
+                                <tr>
+                                    <td>03/12/2025</td>
+                                    <td>Le RSSI de RTI partage des stratégies de cybersécurité pour les institutions disposant de ressources limitées.</td>
+                                    <td><span class="badge bg-secondary">Cybersecurity</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	    <section id="stage" class="container">
+        <h2 class="section-title"><span>06.</span> Stage 1er Année</h2>
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-5"><div class="project-card"><h4>Rapport de stage</h4><p>Rapport </p><a href=".pdf" class="btn-action">Ouvrir PDF</a></div></div>
+           
         </div>
     </section>
 
     <footer>
-        <p>© 2026 — Portfolio Fadi Alouani | BTS SIO SLAM</p>
+        <div class="container">
+            <p>FADI ALOUANI // 2026-2027</p>
+            <p style="color: var(--primary-cyan); margin-top: 10px; font-size: 0.6rem;">FALOUANI368@GMAIL.COM • 07 69 43 94 21</p>
+		<p style="color: var(--primary-cyan); margin-top: 10px; font-size: 0.6rem;">PORTFOLIO 1ère Année : <a href="https://famous-longma-148955.netlify.app/">Mon portfolio</a></p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if(window.scrollY > 50) {
-                navbar.style.padding = '10px 0';
-                navbar.style.background = 'rgba(5, 7, 5, .95)';
-            } else {
-                navbar.style.padding = '18px 0';
-                navbar.style.background = 'rgba(5, 7, 5, .75)';
-            }
-        });
-    </script>
 </body>
 </html>
